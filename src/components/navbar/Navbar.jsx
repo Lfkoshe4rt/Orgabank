@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RiMoneyDollarCircleLine, RiWalletLine } from "react-icons/ri";
 import { RxExit } from "react-icons/rx";
-import menu from "../../assets/menu.svg";
+import menu from "../../assets/images/menu.svg";
 import { PrivateRoutes, PublicRoutes } from "../../Routes/routes";
 import Dropdown from "../dropdown/Dropdown";
 import { Button, Center, Logout, Menu, Nav, NavLink, Title, TopNav } from "./styled";

@@ -1,12 +1,5 @@
-import styled from "styled-components";
-
-const Card = styled.div`
-background: rgba(255, 255, 255, 0);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(10.2px);
--webkit-backdrop-filter: blur(10.2px);
-`
+import { Card, Nombre, Button, List, Item } from "./styled";
+import { RiSettings2Line } from "react-icons/ri";
 
 const Caja = (props) => {
   const { caja, index } = props;
@@ -14,17 +7,21 @@ const Caja = (props) => {
   return (
     <Card key={index}>
       <div>
-        <h3>{caja.alias}</h3>
-        <p>Saldo: {caja.saldo} {caja.moneda}</p>
-        <p>Banco: {caja.banco}</p>
-        <p>Moneda: {caja.moneda}</p>
-        <h3>ahahah</h3>
+        <Nombre>{caja.alias}</Nombre>
+        <List>
+          <Item>Saldo: {caja.saldo}</Item>
+          <Item>Moneda: {caja.moneda}</Item>
+          <Item>Banco: {caja.banco}</Item>
+        </List>
       </div>
-      <div>
-        <button>Gestionar</button>
+
+      <div style={{ display: "flex", alignItems: "flex-end" }}>
+        <Button className="mb-1" title="Gestionar">
+          <RiSettings2Line size="1.5rem" />
+        </Button>
       </div>
     </Card>
-  )
-}
+  );
+};
 
 export default Caja;

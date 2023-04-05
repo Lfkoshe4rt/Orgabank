@@ -18,11 +18,11 @@ export default function Home() {
 
   return (
     <>
-      <h1>Bienvenido {username}</h1>
+      {/*    <h1>Bienvenido {username}</h1>
 
       <p>{token}</p>
 
-      <h2>Capital total: {total} UYU</h2>
+      <h2>Capital total: {total} UYU</h2> */}
       {
         cajas.map((caja, index) => {
           return <Caja key={index} caja={caja} />
