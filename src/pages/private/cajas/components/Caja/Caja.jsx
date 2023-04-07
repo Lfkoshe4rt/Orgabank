@@ -3,15 +3,16 @@ import { RiSettings2Line } from "react-icons/ri";
 
 const Caja = (props) => {
   const { caja, index } = props;
+  const { saldo, banco, alias, moneda } = caja;
 
   return (
     <Card key={index}>
       <div>
-        <Nombre>{caja.alias}</Nombre>
+        <Nombre>{alias}</Nombre>
         <List>
-          <Item>Saldo: {caja.saldo}</Item>
-          <Item>Moneda: {caja.moneda}</Item>
-          <Item>Banco: {caja.banco}</Item>
+          <Item>Saldo: {saldo}</Item>
+          <Item>Moneda: {moneda}</Item>
+          <Item>Banco: {banco}</Item>
         </List>
       </div>
 

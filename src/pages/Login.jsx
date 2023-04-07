@@ -22,31 +22,51 @@ export default function Login() {
     password: "",
     cajas: [{
       "alias": "Caja 1",
-      "saldo": 770000,
+      "saldo": 200,
       "banco": "ITAU",
       "moneda": "UYU"
     },
 
     {
-      "alias": "Caja 1",
-      "saldo": 770000,
+      "alias": "Caja 2",
+      "saldo": 300,
       "banco": "ITAU",
       "moneda": "UYU"
     },
 
     {
-      "alias": "Caja 1",
-      "saldo": 770000,
+      "alias": "Caja 3",
+      "saldo": 105,
       "banco": "ITAU",
-      "moneda": "UYU"
+      "moneda": "R$"
+    }
+      ,
+    {
+      "alias": "Caja 4",
+      "saldo": 200,
+      "banco": "ITAU",
+      "moneda": "R$"
     },
 
     {
-      "alias": "Caja 1",
-      "saldo": 770000,
+      "alias": "Caja 4",
+      "saldo": 100,
       "banco": "ITAU",
       "moneda": "UYU"
-    }]
+    },
+    {
+      "alias": "Caja 1",
+      "saldo": 100,
+      "banco": "BBVA",
+      "moneda": "USD"
+    },
+    {
+      "alias": "Caja 2",
+      "saldo": 25,
+      "banco": "BBVA",
+      "moneda": "USD"
+    }
+    ]
   });
 
   const handleOnChange = (e) => {
