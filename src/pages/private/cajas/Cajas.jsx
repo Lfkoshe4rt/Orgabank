@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Caja } from "./components/Caja";
-import { Item, List, LetrasChicas, Moneda, Titulo } from "./styled";
+import { Item, List, LetrasChicas, Moneda, Titulo, Header } from "./styled";
 
 export default function Home() {
   const { username, token, cajas } = useSelector((state) => state.user);
@@ -43,50 +43,67 @@ export default function Home() {
 
   return (
     <>
+      <Header>
+        <List>
+          <Item color="purple">
+            <div className="ml-3">
+              <Titulo>
+                <LetrasChicas>CAPITAL TOTAL</LetrasChicas>
+              </Titulo>
+              <Moneda>
+                $ {resultTotal.total} <LetrasChicas>UYU</LetrasChicas>
+              </Moneda>
+            </div>
+          </Item>
+          <Item color="red">
+            <div className="ml-3">
+              <Titulo>
+                <LetrasChicas>CAPITAL TOTAL</LetrasChicas>
+              </Titulo>
+              <Moneda>
+                $ {resultTotal.total1} <LetrasChicas>USD</LetrasChicas>
+              </Moneda>
+            </div>
+          </Item>
+        </List>
 
+        <List>
 
-      <List>
-        <Item color="red">
-          <div className="ml-3">
-            <Titulo>
-              <LetrasChicas>TOTAL</LetrasChicas>
-            </Titulo>
-            <Moneda>
-              $ {resultTotal.totalUSD} <LetrasChicas>DE DOLARES</LetrasChicas>
-            </Moneda>
-          </div>
-        </Item>
-        <Item color="purple">
-          <div className="ml-3">
-            <Titulo>
-              <LetrasChicas>TOTAL</LetrasChicas>
-            </Titulo>
-            <Moneda>
-              $ {resultTotal.totalUYU} <LetrasChicas>DE PESOS UY</LetrasChicas>
-            </Moneda>
-          </div>
-        </Item>
-        <Item color="violet">
-          <div className="ml-3">
-            <Titulo>
-              <LetrasChicas>TOTAL</LetrasChicas>
-            </Titulo>
-            <Moneda>
-              $ {resultTotal.totalR$} <LetrasChicas> DE REALES</LetrasChicas>
-            </Moneda>
-          </div>
-        </Item>
-        <Item color="yellow">
-          <div className="ml-3">
-            <Titulo>
-              <LetrasChicas>CAPITAL TOTAL</LetrasChicas>
-            </Titulo>
-            <Moneda>
-              $ {resultTotal.total} <LetrasChicas>UYU</LetrasChicas>
-            </Moneda>
-          </div>
-        </Item>
-      </List>
+          <Item color="purple">
+            <div className="ml-3">
+              <Titulo>
+                <LetrasChicas>TOTAL</LetrasChicas>
+              </Titulo>
+              <Moneda>
+                $ {resultTotal.totalUYU} <LetrasChicas>UYU</LetrasChicas>
+              </Moneda>
+            </div>
+          </Item>
+
+          <Item color="red">
+            <div className="ml-3">
+              <Titulo>
+                <LetrasChicas>TOTAL</LetrasChicas>
+              </Titulo>
+              <Moneda>
+                $ {resultTotal.totalUSD} <LetrasChicas>USD</LetrasChicas>
+              </Moneda>
+            </div>
+          </Item>
+
+          <Item color="violet">
+            <div className="ml-3">
+              <Titulo>
+                <LetrasChicas>TOTAL</LetrasChicas>
+              </Titulo>
+              <Moneda>
+                $ {resultTotal.totalR$} <LetrasChicas>R$</LetrasChicas>
+              </Moneda>
+            </div>
+          </Item>
+
+        </List>
+      </Header>
 
 
       {cajas.map((caja, index) => {

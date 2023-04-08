@@ -8,6 +8,7 @@ export const Card = styled.div`
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
+  border-left: 3px solid green;
 `;
 
 export const Button = styled.button`
