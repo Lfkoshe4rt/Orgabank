@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Caja } from "./components/Caja";
 import { Item, List, LetrasChicas, Moneda, Titulo, Header, Separator, Lista } from "./styled";
+import { RiAddCircleLine } from "react-icons/ri";
 
 export default function Home() {
   const { username, token, cajas } = useSelector((state) => state.user);
@@ -110,6 +111,16 @@ export default function Home() {
         })}
       </Lista>
 
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "20px",
+        marginBotton: "30px",
+      }}>
+
+        <RiAddCircleLine color="green" size={40} className="icono" />
+
+      </div >
 
     </>
   );

@@ -26,16 +26,28 @@ export default function Login() {
       "banco": "ITAU",
       "moneda": "UYU"
     },
-
     {
       "alias": "Caja 2",
+      "saldo": 1000000,
+      "banco": "ITAU",
+      "moneda": "UYU"
+    },
+    {
+      "alias": "Caja 3",
+      "saldo": 1000000,
+      "banco": "ITAU",
+      "moneda": "UYU"
+    },
+
+    {
+      "alias": "Caja 4",
       "saldo": 6000,
       "banco": "ITAU",
       "moneda": "R$"
     },
 
     {
-      "alias": "Caja 3",
+      "alias": "Caja 5",
       "saldo": 2324,
       "banco": "ITAU",
       "moneda": "USD"
