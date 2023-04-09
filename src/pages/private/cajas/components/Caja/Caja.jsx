@@ -4,9 +4,14 @@ import { RiSettings2Line } from "react-icons/ri";
 const Caja = (props) => {
   const { caja, index } = props;
   const { saldo, banco, alias, moneda } = caja;
+  const color = {
+    "USD": "red",
+    "R$": "violet",
+    "UYU": "purple"
+  }
 
   return (
-    <Card key={index}>
+    <Card color={color[moneda]} key={index}>
       <div>
         <Nombre>{alias}</Nombre>
         <List>

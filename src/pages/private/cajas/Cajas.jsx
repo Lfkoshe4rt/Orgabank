@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Caja } from "./components/Caja";
-import { Item, List, LetrasChicas, Moneda, Titulo, Header } from "./styled";
+import { Item, List, LetrasChicas, Moneda, Titulo, Header, Separator, Lista } from "./styled";
 
 export default function Home() {
   const { username, token, cajas } = useSelector((state) => state.user);
@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <>
-      <Header>
+      <Header className="mt-3">
         <List>
           <Item color="purple">
             <div className="ml-3">
@@ -67,8 +67,9 @@ export default function Home() {
           </Item>
         </List>
 
-        <List>
+        <Separator />
 
+        <List>
           <Item color="purple">
             <div className="ml-3">
               <Titulo>
@@ -79,7 +80,6 @@ export default function Home() {
               </Moneda>
             </div>
           </Item>
-
           <Item color="red">
             <div className="ml-3">
               <Titulo>
@@ -90,7 +90,6 @@ export default function Home() {
               </Moneda>
             </div>
           </Item>
-
           <Item color="violet">
             <div className="ml-3">
               <Titulo>
@@ -101,14 +100,15 @@ export default function Home() {
               </Moneda>
             </div>
           </Item>
-
         </List>
       </Header>
 
 
-      {cajas.map((caja, index) => {
-        return <Caja key={index} caja={caja} />;
-      })}
+      <Lista>
+        {cajas.map((caja, index) => {
+          return <li key={index}><Caja caja={caja} /></li>;
+        })}
+      </Lista>
 
 
     </>

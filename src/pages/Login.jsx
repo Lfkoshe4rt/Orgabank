@@ -22,50 +22,25 @@ export default function Login() {
     password: "",
     cajas: [{
       "alias": "Caja 1",
-      "saldo": 200,
+      "saldo": 1000000,
       "banco": "ITAU",
       "moneda": "UYU"
     },
 
     {
       "alias": "Caja 2",
-      "saldo": 300,
+      "saldo": 6000,
       "banco": "ITAU",
-      "moneda": "UYU"
+      "moneda": "R$"
     },
 
     {
       "alias": "Caja 3",
-      "saldo": 105,
+      "saldo": 2324,
       "banco": "ITAU",
-      "moneda": "R$"
+      "moneda": "USD"
     }
-      ,
-    {
-      "alias": "Caja 4",
-      "saldo": 200,
-      "banco": "ITAU",
-      "moneda": "R$"
-    },
 
-    {
-      "alias": "Caja 4",
-      "saldo": 100,
-      "banco": "ITAU",
-      "moneda": "UYU"
-    },
-    {
-      "alias": "Caja 1",
-      "saldo": 100,
-      "banco": "BBVA",
-      "moneda": "USD"
-    },
-    {
-      "alias": "Caja 2",
-      "saldo": 25,
-      "banco": "BBVA",
-      "moneda": "USD"
-    }
     ]
   });
 
