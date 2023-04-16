@@ -1,127 +1,112 @@
-import { useSelector } from "react-redux";
-import { Caja } from "./components/Caja";
-import { Item, List, LetrasChicas, Moneda, Titulo, Header, Separator, Lista } from "./styled";
 import { RiAddCircleLine } from "react-icons/ri";
+import { CardMetric } from "../../../components/cardMetric";
+import { getAmountAllBoxes } from "../../../hooks/getMoney";
+import { useAppSelector } from "../../../hooks/store";
+import { useUserActions } from "../../../hooks/useUserActions";
+import { Caja } from "./components/Caja";
+import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 
 export default function Home() {
-  const { username, token, cajas } = useSelector((state) => state.user);
+  const { cajas } = useAppSelector((state) => state.user);
+  const { acc } = getAmountAllBoxes({ cajas });
+  const { modifyUser } = useUserActions();
 
-  const getTotals = () => {
-    let conversionUSD = 38;
-    let conversionR$ = 9.1;
-    let totalUSD = 0;
-    let totalUYU = 0;
-    let totalR$ = 0;
-    let total = 200;
-    let total1 = 0;
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-    cajas.forEach((caja) => {
-      if (caja.moneda === "USD") {
-        totalUSD += caja.saldo;
-      } else if (caja.moneda === "R$") {
-        totalR$ += caja.saldo;
-      } else {
-        totalUYU += caja.saldo;
-      }
+    const form = new FormData(e.target);
+
+    const alias = form.get("nombre");
+    const saldo = form.get("saldo");
+    const moneda = form.get("moneda");
+    const banco = form.get("banco");
+
+    modifyUser({
+      cajas: [
+        ...cajas,
+        {
+          alias,
+          saldo: Number(saldo),
+          moneda,
+          banco,
+        },
+      ],
     });
-
-    total = totalUYU + totalR$ * conversionR$ + totalUSD * conversionUSD;
-    total1 = total / conversionUSD;
-
-    const result = {
-      totalUYU,
-      totalUSD,
-      totalR$,
-      total: total.toFixed(2),
-      total1: total1.toFixed(2),
-    };
-
-    localStorage.setItem("total", JSON.stringify(result));
-    return result;
   };
-
-  const resultTotal = getTotals();
 
   return (
     <>
       <Header className="mt-3">
-        <List>
-          <Item color="purple">
-            <div className="ml-3">
-              <Titulo>
-                <LetrasChicas>CAPITAL TOTAL</LetrasChicas>
-              </Titulo>
-              <Moneda>
-                $ {resultTotal.total} <LetrasChicas>UYU</LetrasChicas>
-              </Moneda>
-            </div>
+        <Lista>
+          <Item>
+            <CardMetric
+              color="purple"
+              titulo="capital total"
+              value={acc.totalUYU.toFixed(2)}
+              moneda="UYU"
+            />
           </Item>
-          <Item color="red">
-            <div className="ml-3">
-              <Titulo>
-                <LetrasChicas>CAPITAL TOTAL</LetrasChicas>
-              </Titulo>
-              <Moneda>
-                $ {resultTotal.total1} <LetrasChicas>USD</LetrasChicas>
-              </Moneda>
-            </div>
+          <Item>
+            <CardMetric
+              color="red"
+              titulo="capital total"
+              value={acc.totalEnUSD.toFixed(2)}
+              moneda="USD"
+            />
           </Item>
-        </List>
+        </Lista>
 
-        <Separator />
-
-        <List>
-          <Item color="purple">
-            <div className="ml-3">
-              <Titulo>
-                <LetrasChicas>TOTAL</LetrasChicas>
-              </Titulo>
-              <Moneda>
-                $ {resultTotal.totalUYU} <LetrasChicas>UYU</LetrasChicas>
-              </Moneda>
-            </div>
+        <Lista>
+          <Item>
+            <CardMetric
+              color="purple"
+              titulo="total"
+              value={acc.totalUYU.toFixed(2)}
+              moneda="UYU"
+            />
           </Item>
-          <Item color="red">
-            <div className="ml-3">
-              <Titulo>
-                <LetrasChicas>TOTAL</LetrasChicas>
-              </Titulo>
-              <Moneda>
-                $ {resultTotal.totalUSD} <LetrasChicas>USD</LetrasChicas>
-              </Moneda>
-            </div>
+          <Item>
+            <CardMetric
+              color="red"
+              titulo="total"
+              value={acc.totalUSD.toFixed(2)}
+              moneda="USD"
+            />
           </Item>
-          <Item color="violet">
-            <div className="ml-3">
-              <Titulo>
-                <LetrasChicas>TOTAL</LetrasChicas>
-              </Titulo>
-              <Moneda>
-                $ {resultTotal.totalR$} <LetrasChicas>R$</LetrasChicas>
-              </Moneda>
-            </div>
+          <Item>
+            <CardMetric
+              color="violet"
+              titulo="total"
+              value={acc.totalR$.toFixed(2)}
+              moneda="R$"
+            />
           </Item>
-        </List>
+        </Lista>
       </Header>
 
-
-      <Lista>
+      <ListaCajas>
         {cajas.map((caja, index) => {
-          return <li key={index}><Caja caja={caja} /></li>;
+          return (
+            <Item key={index}>
+              <Caja caja={caja} />
+            </Item>
+          );
         })}
-      </Lista>
+      </ListaCajas>
 
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "20px",
-        marginBotton: "30px",
-      }}>
+      <form onSubmit={onSubmit}>
+        <input type="text" name="nombre" />
+        <input type="text" name="saldo" />
+        <input type="text" name="moneda" />
+        <input type="text" name="banco" />
 
-        <RiAddCircleLine color="green" size={40} className="icono" />
-
-      </div >
-
+        <InvisibleButton
+          className="m-auto pt-3 pb-3"
+          onClick={() => console.log("aa")}
+        >
+          <RiAddCircleLine color="green" size={40} />
+        </InvisibleButton>
+      </form>
     </>
   );
 }

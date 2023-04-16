@@ -1,77 +1,57 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { resetUser, setUser } from "../reducers/user/userSlice";
 import { PrivateRoutes, PublicRoutes } from "../Routes/routes";
-import { clearLocalStorage } from "../utilities/localstorage.utility";
+import { useUserActions } from "../hooks/useUserActions";
 
 export default function Login() {
-
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
+  const { addUser, refreshUser } = useUserActions();
 
   useEffect(() => {
-    clearLocalStorage("user");
-    dispatch(resetUser());
+    refreshUser();
     navigate(`/${PublicRoutes.LOGIN}`, { replace: true });
   }, []);
-
-  const [user, setValuesUSer] = useState({
-    username: "",
-    password: "",
-    cajas: [{
-      "alias": "Caja 1",
-      "saldo": 1000000,
-      "banco": "ITAU",
-      "moneda": "UYU"
-    },
-    {
-      "alias": "Caja 2",
-      "saldo": 1000000,
-      "banco": "ITAU",
-      "moneda": "UYU"
-    },
-    {
-      "alias": "Caja 3",
-      "saldo": 1000000,
-      "banco": "ITAU",
-      "moneda": "UYU"
-    },
-
-    {
-      "alias": "Caja 4",
-      "saldo": 6000,
-      "banco": "ITAU",
-      "moneda": "R$"
-    },
-
-    {
-      "alias": "Caja 5",
-      "saldo": 2324,
-      "banco": "ITAU",
-      "moneda": "USD"
-    }
-
-    ]
-  });
-
-  const handleOnChange = (e) => {
-    setValuesUSer({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(
-      setUser({
-        ...user,
-        token: Date.now().toString(),
-      })
-    );
+    const formData = new FormData(e.target);
+    const username = formData.get("username");
+    const password = formData.get("password");
+
+    addUser({
+      username,
+      password,
+      token: Date.now().toString(),
+      cajas: [
+        {
+          alias: "Caja 1",
+          saldo: 500,
+          banco: "ITAU",
+          moneda: "UYU",
+        },
+        {
+          alias: "Caja 2",
+          saldo: 500,
+          banco: "ITAU",
+          moneda: "UYU",
+        },
+
+        {
+          alias: "Caja 3",
+          saldo: 100,
+          banco: "ITAU",
+          moneda: "R$",
+        },
+
+        {
+          alias: "Caja 5",
+          saldo: 100,
+          banco: "ITAU",
+          moneda: "USD",
+        },
+      ],
+    });
 
     navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
   };
@@ -79,13 +59,8 @@ export default function Login() {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <input type="text" name="username" onChange={handleOnChange} required />
-        <input
-          type="password"
-          name="password"
-          onChange={handleOnChange}
-          required
-        />
+        <input type="text" name="username" required />
+        <input type="password" name="password" required />
         <button type="submit">Login</button>
       </form>
     </>

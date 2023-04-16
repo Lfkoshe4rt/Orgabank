@@ -225,3 +225,7 @@ body {
 .p-0 {
   padding: 0;
 }
+
+.m-auto {
+  margin: auto;
+}

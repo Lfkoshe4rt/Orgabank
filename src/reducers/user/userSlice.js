@@ -1,37 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  clearLocalStorage,
   persistLocalStorage,
-} from "../../utilities/localstorage.utility";
+  clearLocalStorage,
+} from "../../hooks/persistLocalStorage";
 
-let initialState = {
+const DEFAULT_STATE = {
   username: null,
   password: null,
   token: null,
   cajas: [],
 };
 
-const key = "user";
+const KEY = "reduxState";
+
+const initialState = (() => {
+  const persistedState = localStorage.getItem("reduxState");
+
+  if (persistedState) {
+    return JSON.parse(persistedState);
+  }
+
+  return DEFAULT_STATE;
+})();
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : initialState,
-
+  initialState,
   reducers: {
     setUser: (state, action) => {
-      persistLocalStorage(key, action.payload);
+      persistLocalStorage(KEY, action.payload);
       return action.payload;
     },
 
     resetUser: () => {
-      clearLocalStorage(key);
-      return initialState;
+      clearLocalStorage(KEY);
+      return DEFAULT_STATE;
+    },
+
+    updateUser: (state, action) => {
+      const { cajas } = action.payload;
+
+      persistLocalStorage(KEY, { ...state, cajas });
+
+      return { ...state, ...action.payload };
     },
   },
 });
 
-export const { setUser, resetUser } = userSlice.actions;
+export const { setUser, resetUser, updateUser } = userSlice.actions;
 
 export default userSlice.reducer;
