@@ -1,59 +1,48 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PrivateRoutes, PublicRoutes } from "../Routes/routes";
 import { useUserActions } from "../hooks/useUserActions";
+import { useCajaActions } from "../hooks/useCajaActions";
+import httpClient from "../utilities/httpClient";
 
 export default function Login() {
   const navigate = useNavigate();
   const { addUser, refreshUser } = useUserActions();
+  const { addCaja, refreshCaja } = useCajaActions();
+
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     refreshUser();
+    refreshCaja();
     navigate(`/${PublicRoutes.LOGIN}`, { replace: true });
   }, []);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+
     const username = formData.get("username");
     const password = formData.get("password");
 
-    addUser({
+    const user = {
       username,
       password,
-      token: Date.now().toString(),
-      cajas: [
-        {
-          alias: "Caja 1",
-          saldo: 500,
-          banco: "ITAU",
-          moneda: "UYU",
-        },
-        {
-          alias: "Caja 2",
-          saldo: 500,
-          banco: "ITAU",
-          moneda: "UYU",
-        },
+    };
 
-        {
-          alias: "Caja 3",
-          saldo: 100,
-          banco: "ITAU",
-          moneda: "R$",
-        },
+    const response = await httpClient.post("/user/login", { data: user });
+    const { message, data } = response;
 
-        {
-          alias: "Caja 5",
-          saldo: 100,
-          banco: "ITAU",
-          moneda: "USD",
-        },
-      ],
-    });
+    if (message === "User logged in") {
+      addUser({ ...data, token: Date.now().toString() });
 
-    navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
+      addCaja({ cajas: data.cajas });
+
+      navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
+    } else {
+      setMessage("User not found. Please try again.");
+    }
   };
 
   return (
@@ -63,6 +52,7 @@ export default function Login() {
         <input type="password" name="password" required />
         <button type="submit">Login</button>
       </form>
+      <p>{message}</p>
     </>
   );
 }

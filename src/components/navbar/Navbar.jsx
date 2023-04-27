@@ -77,7 +77,7 @@ const Navbar = () => {
           </Center>
         </NavLink>
 
-        <Dropdown handleActive={handleActive} title="Alicia Elgul">
+        <Dropdown handleActive={handleActive} title="Starkusca">
           <Logout
             onClick={() => handleSelected(PublicRoutes.LOGIN)}
             to={PublicRoutes.LOGIN}

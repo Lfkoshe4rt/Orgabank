@@ -1,4 +1,9 @@
-import { resetUser, setUser, updateUser } from "../reducers/user/userSlice";
+import {
+  resetUser,
+  setUser,
+  updateUser,
+  updateCajaUser,
+} from "../reducers/user/userSlice";
 import { useAppDispatch } from "./store";
 
 export const useUserActions = () => {
@@ -16,9 +21,14 @@ export const useUserActions = () => {
     dispatch(updateUser(user));
   };
 
+  const modifyCajaUser = (cajas) => {
+    dispatch(updateCajaUser(cajas));
+  };
+
   return {
     addUser,
     refreshUser,
     modifyUser,
+    modifyCajaUser,
   };
 };

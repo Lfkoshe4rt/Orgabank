@@ -1,38 +1,18 @@
+import { useState } from "react";
 import { RiAddCircleLine } from "react-icons/ri";
+import { ToastContainer } from "react-toastify";
 import { CardMetric } from "../../../components/cardMetric";
-import { getAmountAllBoxes } from "../../../hooks/getMoney";
+import { Modal } from "../../../components/modal";
 import { useAppSelector } from "../../../hooks/store";
-import { useUserActions } from "../../../hooks/useUserActions";
+import { getAmountAllBoxes } from "../../../utilities/getMoney";
 import { Caja } from "./components/Caja";
 import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 
 export default function Home() {
-  const { cajas } = useAppSelector((state) => state.user);
+  const [openModal, setOpenModal] = useState(false);
+  const { cajas } = useAppSelector((state) => state.caja);
+  const { _id } = useAppSelector((state) => state.user);
   const { acc } = getAmountAllBoxes({ cajas });
-  const { modifyUser } = useUserActions();
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const form = new FormData(e.target);
-
-    const alias = form.get("nombre");
-    const saldo = form.get("saldo");
-    const moneda = form.get("moneda");
-    const banco = form.get("banco");
-
-    modifyUser({
-      cajas: [
-        ...cajas,
-        {
-          alias,
-          saldo: Number(saldo),
-          moneda,
-          banco,
-        },
-      ],
-    });
-  };
 
   return (
     <>
@@ -42,7 +22,7 @@ export default function Home() {
             <CardMetric
               color="purple"
               titulo="capital total"
-              value={acc.totalUYU.toFixed(2)}
+              value={acc.totalEnUYU.toFixed(2)}
               moneda="UYU"
             />
           </Item>
@@ -94,19 +74,22 @@ export default function Home() {
         })}
       </ListaCajas>
 
-      <form onSubmit={onSubmit}>
-        <input type="text" name="nombre" />
-        <input type="text" name="saldo" />
-        <input type="text" name="moneda" />
-        <input type="text" name="banco" />
+      <InvisibleButton
+        onClick={() => setOpenModal(true)}
+        className="m-auto pt-3 pb-3"
+      >
+        <RiAddCircleLine color="green" size={40} />
+      </InvisibleButton>
 
-        <InvisibleButton
-          className="m-auto pt-3 pb-3"
-          onClick={() => console.log("aa")}
-        >
-          <RiAddCircleLine color="green" size={40} />
-        </InvisibleButton>
-      </form>
+      <Modal
+        title="Agregar caja"
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        cajas={cajas}
+        user={_id}
+      />
+
+      <ToastContainer draggablePercent={60} autoClose={2000} />
     </>
   );
 }

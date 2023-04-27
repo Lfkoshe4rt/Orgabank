@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   persistLocalStorage,
   clearLocalStorage,
-} from "../../hooks/persistLocalStorage";
+} from "../../utilities/persistLocalStorage";
 
 const DEFAULT_STATE = {
   username: null,
@@ -38,15 +38,21 @@ export const userSlice = createSlice({
     },
 
     updateUser: (state, action) => {
-      const { cajas } = action.payload;
-
       persistLocalStorage(KEY, { ...state, cajas });
-
       return { ...state, ...action.payload };
+    },
+
+    updateCajaUser: (state, action) => {
+      const cajas = [...state.cajas, action.payload];
+
+      //persistLocalStorage(KEY, { ...state, cajas });
+
+      return { ...state, cajas };
     },
   },
 });
 
-export const { setUser, resetUser, updateUser } = userSlice.actions;
+export const { setUser, resetUser, updateUser, updateCajaUser } =
+  userSlice.actions;
 
 export default userSlice.reducer;
