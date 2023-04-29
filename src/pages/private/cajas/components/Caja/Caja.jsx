@@ -2,13 +2,13 @@ import { Card, Nombre, Button, List, Item } from "./styled";
 import { RiSettings2Line } from "react-icons/ri";
 
 const Caja = (props) => {
-  const { caja, index } = props;
+  const { caja, index, setBoxSelected } = props;
   const { saldo, banco, alias, moneda } = caja;
   const color = {
-    "USD": "red",
-    "R$": "violet",
-    "UYU": "purple"
-  }
+    USD: "red",
+    R$: "violet",
+    UYU: "purple",
+  };
 
   return (
     <Card color={color[moneda]} key={index}>
@@ -22,7 +22,11 @@ const Caja = (props) => {
       </div>
 
       <div style={{ display: "flex", alignItems: "flex-end" }}>
-        <Button className="mb-1" title="Gestionar">
+        <Button
+          className="mb-1"
+          title="Gestionar"
+          onClick={() => setBoxSelected(caja)}
+        >
           <RiSettings2Line size="1.5rem" />
         </Button>
       </div>

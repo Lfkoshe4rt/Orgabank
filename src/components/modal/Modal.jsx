@@ -1,6 +1,7 @@
 import { AiOutlineClose } from "react-icons/ai";
 import InvisibleButton from "../invisibleButton/InvisibleButton";
 
+import { FormCaja } from "../form";
 import {
   BodyModal,
   Button,
@@ -8,42 +9,13 @@ import {
   Container,
   Footer,
   HeaderModal,
-  Input,
-  InputGroup,
-  Label,
   Line,
   Mdal,
-  Option,
-  Select,
   Title,
 } from "./styled";
 
-import { useCajaActions } from "../../hooks/useCajaActions";
-
-const Modal = ({ open, onClose, title, user }) => {
-  const { modifyCaja } = useCajaActions();
+const Modal = ({ open, onClose, title }) => {
   if (!open) return null;
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    const form = new FormData(e.target);
-
-    const alias = form.get("nombre");
-    const saldo = form.get("saldo");
-    const moneda = form.get("moneda");
-    const banco = form.get("banco");
-
-    const caja = {
-      alias,
-      saldo: Number(saldo),
-      moneda,
-      banco,
-      user,
-    };
-
-    modifyCaja(caja);
-  };
 
   return (
     <>
@@ -58,37 +30,7 @@ const Modal = ({ open, onClose, title, user }) => {
           </HeaderModal>
 
           <BodyModal>
-            <form id="formCaja" onSubmit={onSubmit}>
-              <InputGroup>
-                <Label>Nombre</Label>
-                <Input type="text" name="nombre" required />
-              </InputGroup>
-
-              <InputGroup>
-                <Label>Monto</Label>
-                <Input type="number" name="saldo" required />
-              </InputGroup>
-
-              <InputGroup>
-                <Label>Moneda</Label>
-                <Select name="moneda">
-                  <Option value="UYU">UYU</Option>
-                  <Option value="USD">USD</Option>
-                  <Option value="R$">R$</Option>
-                </Select>
-              </InputGroup>
-
-              <InputGroup>
-                <Label>Banco</Label>
-                <Select name="banco">
-                  <Option value="ITAU">ITAU</Option>
-                  <Option value="BROU">BROU</Option>
-                  <Option value="BBVA">BBVA</Option>
-                  <Option value="SCOTIABANK">SCOTIABANK</Option>
-                  <Option value="SANTANDER">SANTANDER</Option>
-                </Select>
-              </InputGroup>
-            </form>
+            <FormCaja />
           </BodyModal>
           <Line />
           <Footer>

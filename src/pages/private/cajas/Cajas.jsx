@@ -10,6 +10,7 @@ import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 
 export default function Home() {
   const [openModal, setOpenModal] = useState(false);
+  const [boxSelected, setBoxSelected] = useState({});
   const { cajas } = useAppSelector((state) => state.caja);
   const { _id } = useAppSelector((state) => state.user);
   const { acc } = getAmountAllBoxes({ cajas });
@@ -68,7 +69,7 @@ export default function Home() {
         {cajas.map((caja, index) => {
           return (
             <Item key={index}>
-              <Caja caja={caja} />
+              <Caja caja={caja} setBoxSelected={setBoxSelected} />
             </Item>
           );
         })}
@@ -85,11 +86,9 @@ export default function Home() {
         title="Agregar caja"
         open={openModal}
         onClose={() => setOpenModal(false)}
-        cajas={cajas}
-        user={_id}
       />
 
-      <ToastContainer draggablePercent={60} autoClose={2000} />
+      <ToastContainer draggablePercent={60} autoClose={4000} />
     </>
   );
 }

@@ -15,8 +15,8 @@ export const Container = styled.div`
 
 export const Mdal = styled.div`
   width: 700px;
-  height: 100%;
-  background: white;
+
+  background-color: white;
 
   z-index: 10;
   border-radius: 10px;
@@ -44,6 +44,10 @@ export const Line = styled.hr`
 
 export const BodyModal = styled.div`
   padding: 10px;
+
+  @media (max-height: 520px) {
+    padding: 0 5px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -51,6 +55,9 @@ export const Title = styled.h2`
   font-weight: bold;
   color: black;
   text-decoration: underline;
+  @media (max-height: 520px) {
+    font-size: 20px;
+  }
 `;
 
 export const HeaderModal = styled.div`
@@ -64,6 +71,11 @@ export const HeaderModal = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #cccccc;
+
+  @media (max-height: 520px) {
+    height: 40px;
+    padding: 5px;
+  }
 `;
 
 export const Footer = styled.div`
@@ -81,36 +93,9 @@ export const Button = styled.button`
   text-align: center;
   font-size: 16px;
   cursor: pointer;
-`;
 
-export const InputGroup = styled.div`
-  margin: 15px 0;
-`;
-
-export const Label = styled.label`
-  font-size: 16px;
-  display: block;
-  margin-bottom: 3px;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-export const Select = styled.select`
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  border-radius: 5px;
-`;
-
-export const Option = styled.option`
-  padding: 10px;
-  &:focus {
-    background-color: #ccc;
+  @media (max-height: 520px) {
+    padding: 5px;
+    font-size: 14px;
   }
 `;
