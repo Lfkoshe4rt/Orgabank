@@ -7,7 +7,7 @@ let devices = {
 
 export const Nav = styled.nav`
   display: flex;
-  background-color: #343A40;
+  background-color: #343a40;
 
   @media (max-width: ${devices.mobile}) {
     display: block;
@@ -43,7 +43,6 @@ export const Menu = styled.div`
   flex: content;
   justify-content: flex-end;
   align-items: center;
-  
 
   @media (max-width: ${devices.mobile}) {
     display: ${(props) => (props.active ? "flex" : "none")};
@@ -51,7 +50,7 @@ export const Menu = styled.div`
     justify-content: space-evenly;
     flex-direction: column;
     align-items: flex-start !important;
-    transition: .5s ease;
+    transition: 0.5s ease;
   }
 
   @media (min-width: ${devices.mobile}) {
@@ -69,7 +68,7 @@ export const NavLink = styled(Link)`
   letter-spacing: 1px;
   padding: 0 10px;
   margin: 2px;
-  margin-left: ${(props) => props.marginLeft || "0"}};
+  margin-left: ${(props) => props.marginLeft || "0"};
 
   &:hover {
     color: white;
@@ -77,8 +76,8 @@ export const NavLink = styled(Link)`
   }
 
   @media (max-width: ${devices.mobile}) {
-   margin-left: 0 ;
-   padding: 5px 0;
+    margin-left: 0;
+    padding: 5px 0;
   }
 `;
 
@@ -99,7 +98,7 @@ export const Logout = styled(Link)`
   font-size: 1rem;
   margin-left: 20px;
   padding: 0 10px;
-  
+
   &:hover {
     color: #b30000;
   }

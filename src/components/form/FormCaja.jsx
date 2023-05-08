@@ -1,13 +1,16 @@
 import { toast } from "react-toastify";
 import { useAppSelector } from "../../hooks/store";
 import { useCajaActions } from "../../hooks/useCajaActions";
+import { Button, Footer } from "../modal/styled";
 import { Input, InputGroup, Label, Option, Select } from "./styled/styled";
 
 const FormCaja = (props) => {
+  const { onClose } = props;
   const { _id } = useAppSelector((state) => state.user);
   const { cajas } = useAppSelector((state) => state.caja);
 
   const { modifyCaja } = useCajaActions();
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,11 +36,12 @@ const FormCaja = (props) => {
     } else {
       modifyCaja(caja);
       e.target.reset();
+      onClose();
     }
   };
 
   return (
-    <form id="formCaja" onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
       <InputGroup>
         <Label>Nombre</Label>
         <Input type="text" name="nombre" required />
@@ -67,7 +71,15 @@ const FormCaja = (props) => {
           <Option value="SANTANDER">SANTANDER</Option>
         </Select>
       </InputGroup>
-      <button>Registrar test</button>
+
+      <Footer>
+        <Button type="button" color="#ff8080" onClick={onClose}>
+          Cancelar
+        </Button>
+        <Button type="submit" color="#80ff80" className="mr-2">
+          Guardar
+        </Button>
+      </Footer>
     </form>
   );
 };

@@ -8,7 +8,7 @@ export const Card = styled.div`
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
-  border-left: 2px solid ${(props) => props.color}};
+  border-left: 2px solid ${(props) => props.color};
 `;
 
 export const Button = styled.button`
@@ -31,7 +31,7 @@ export const List = styled.ul`
   list-style: none;
   margin: 0;
   display: flex;
-  width: 100$;
+  width: 100%;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -43,4 +43,3 @@ export const Item = styled.li`
   margin: 5px 5px 0 0;
   padding: 0 5px 0 0;
 `;
-

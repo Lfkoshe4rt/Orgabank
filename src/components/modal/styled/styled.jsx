@@ -4,7 +4,7 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 2;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
@@ -15,10 +15,7 @@ export const Container = styled.div`
 
 export const Mdal = styled.div`
   width: 700px;
-
   background-color: white;
-
-  z-index: 10;
   border-radius: 10px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
 
@@ -33,6 +30,7 @@ export const Mdal = styled.div`
 
 export const Centrar = styled.div`
   position: fixed;
+  z-index: 3;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -67,7 +65,7 @@ export const HeaderModal = styled.div`
   height: 70px;
   padding: 10px;
   color: black;
-  font-height: bold;
+  font-weight: bold;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #cccccc;
@@ -89,7 +87,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   background-color: ${(props) => props.color || "#000"};
-  color: black
+  color: black;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
