@@ -20,5 +20,8 @@ export const ButtonUp = styled.button`
   &:hover {
     background-color: #489748;
     color: white;
+    width: 60px;
+    height: 60px;
+    right: 20px;
   }
 `;

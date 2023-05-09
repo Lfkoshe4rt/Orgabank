@@ -1,11 +1,15 @@
 import { toast } from "react-toastify";
-import { useAppSelector } from "../../hooks/store";
-import { useCajaActions } from "../../hooks/useCajaActions";
-import { Button, Footer } from "../modal/styled";
-import { Input, InputGroup, Label, Option, Select } from "./styled/styled";
+import { useAppSelector } from "../../../hooks/store";
+import { useCajaActions } from "../../../hooks/useCajaActions";
 
-const FormCaja = (props) => {
-  const { onClose } = props;
+import { Input } from "../../Input";
+import { InputGroup } from "../../inputGroup";
+import { Select } from "../../select";
+import { Option } from "../../option";
+import { Button } from "../../button";
+import { FooterForm } from "../../footerForm";
+
+const FormNewCaja = ({ onClose }) => {
   const { _id } = useAppSelector((state) => state.user);
   const { cajas } = useAppSelector((state) => state.caja);
 
@@ -42,18 +46,15 @@ const FormCaja = (props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <InputGroup>
-        <Label>Nombre</Label>
+      <InputGroup label="Nombre">
         <Input type="text" name="nombre" required />
       </InputGroup>
 
-      <InputGroup>
-        <Label>Monto</Label>
+      <InputGroup label="Monto">
         <Input type="number" name="saldo" required />
       </InputGroup>
 
-      <InputGroup>
-        <Label>Moneda</Label>
+      <InputGroup label="Moneda">
         <Select name="moneda">
           <Option value="UYU">UYU</Option>
           <Option value="USD">USD</Option>
@@ -61,8 +62,7 @@ const FormCaja = (props) => {
         </Select>
       </InputGroup>
 
-      <InputGroup>
-        <Label>Banco</Label>
+      <InputGroup label="Banco">
         <Select name="banco">
           <Option value="ITAU">ITAU</Option>
           <Option value="BROU">BROU</Option>
@@ -72,16 +72,16 @@ const FormCaja = (props) => {
         </Select>
       </InputGroup>
 
-      <Footer>
+      <FooterForm>
         <Button type="button" color="#ff8080" onClick={onClose}>
           Cancelar
         </Button>
         <Button type="submit" color="#80ff80" className="mr-2">
           Guardar
         </Button>
-      </Footer>
+      </FooterForm>
     </form>
   );
 };
 
-export default FormCaja;
+export default FormNewCaja;

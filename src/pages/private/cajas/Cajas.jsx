@@ -2,23 +2,27 @@ import { useState } from "react";
 import { RiAddCircleLine } from "react-icons/ri";
 import { ToastContainer } from "react-toastify";
 import { CardMetric } from "../../../components/cardMetric";
-import { FormCaja } from "../../../components/form";
 import { Modal } from "../../../components/modal";
 import { useAppSelector } from "../../../hooks/store";
 import { getAmountAllBoxes } from "../../../utilities/getMoney";
 import { Caja } from "./components/Caja";
 import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 import { ScrollToUp } from "../../../components/scrollToUp";
+import { FormNewCaja } from "../../../components/resource-form";
 
-export default function Home() {
-  const [openModal, setOpenModal] = useState(false);
+export default function Cajas() {
+  const [openModalNew, setOpenModalNew] = useState(false);
+  const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [boxSelected, setBoxSelected] = useState({});
   const { cajas } = useAppSelector((state) => state.caja);
 
   const { acc } = getAmountAllBoxes({ cajas });
 
-  const handleCloseModal = () => setOpenModal(false);
-  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModalNew = () => setOpenModalNew(false);
+  const handleOpenModalNew = () => setOpenModalNew(true);
+
+  const handleCloseModalUpdate = () => setOpenModalUpdate(false);
+  const handleOpenModalUpdate = () => setOpenModalUpdate(true);
 
   return (
     <>
@@ -74,18 +78,37 @@ export default function Home() {
         {cajas.map((caja, index) => {
           return (
             <Item key={index}>
-              <Caja caja={caja} setBoxSelected={setBoxSelected} />
+              <Caja
+                caja={caja}
+                setBoxSelected={setBoxSelected}
+                openUpdateModal={handleOpenModalUpdate}
+              />
             </Item>
           );
         })}
       </ListaCajas>
 
-      <InvisibleButton onClick={handleOpenModal} className="m-auto pt-3 pb-3">
+      <InvisibleButton
+        onClick={handleOpenModalNew}
+        className="m-auto pt-3 pb-3"
+      >
         <RiAddCircleLine color="green" size={40} />
       </InvisibleButton>
 
-      <Modal title="Agregar caja" open={openModal} onClose={handleCloseModal}>
-        <FormCaja onClose={handleCloseModal} />
+      <Modal
+        title="Agregar caja"
+        open={openModalNew}
+        onClose={handleCloseModalNew}
+      >
+        <FormNewCaja onClose={handleCloseModalNew} />
+      </Modal>
+
+      <Modal
+        title="Modificar caja"
+        open={openModalUpdate}
+        onClose={handleCloseModalUpdate}
+      >
+        <h3>xd</h3>
       </Modal>
 
       <ScrollToUp />
