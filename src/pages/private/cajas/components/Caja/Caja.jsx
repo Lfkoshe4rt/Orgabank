@@ -1,9 +1,10 @@
-import { Card, Nombre, Button, List, Item } from "./styled";
 import { RiSettings2Line } from "react-icons/ri";
+import { toast } from "react-toastify";
+import { Button, Card, Item, List, Nombre } from "./styled";
 
 const Caja = (props) => {
   const { caja, index, setBoxSelected, openUpdateModal } = props;
-  const { saldo, banco, alias, moneda } = caja;
+  const { saldo, banco, alias, moneda, _id } = caja;
 
   const color = {
     USD: "red",
@@ -27,8 +28,12 @@ const Caja = (props) => {
           className="mb-1"
           title="Gestionar"
           onClick={() => {
-            setBoxSelected(caja);
-            openUpdateModal();
+            if (!_id) {
+              toast.warn("Aún no se puede editar esta caja");
+            } else {
+              setBoxSelected(caja);
+              openUpdateModal();
+            }
           }}
         >
           <RiSettings2Line size="1.5rem" />

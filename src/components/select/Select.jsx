@@ -1,7 +1,12 @@
 import { Select as SelectStyled } from "./styled";
 
-const Select = ({ children, ...props }) => {
-  return <SelectStyled {...props}>{children}</SelectStyled>;
+const Select = (props) => {
+  const { children, name, value } = props;
+  return (
+    <SelectStyled name={name} defaultValue={value}>
+      {children}
+    </SelectStyled>
+  );
 };
 
 export default Select;

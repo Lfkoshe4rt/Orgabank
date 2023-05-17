@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { RiAddCircleLine } from "react-icons/ri";
 import { ToastContainer } from "react-toastify";
+
 import { CardMetric } from "../../../components/cardMetric";
 import { Modal } from "../../../components/modal";
-import { useAppSelector } from "../../../hooks/store";
-import { getAmountAllBoxes } from "../../../utilities/getMoney";
-import { Caja } from "./components/Caja";
-import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
+import { FormNewCaja, FormUpdateCaja } from "../../../components/resource-form";
 import { ScrollToUp } from "../../../components/scrollToUp";
-import { FormNewCaja } from "../../../components/resource-form";
+import { Caja } from "./components/Caja";
+import { Message } from "./components/message";
+
+import { useAppSelector } from "../../../hooks/store";
+
+import { getAmountAllBoxes } from "../../../utilities/getMoney";
+
+import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 
 export default function Cajas() {
   const [openModalNew, setOpenModalNew] = useState(false);
@@ -17,6 +22,8 @@ export default function Cajas() {
   const { cajas } = useAppSelector((state) => state.caja);
 
   const { acc } = getAmountAllBoxes({ cajas });
+
+  const reverseCajas = [...cajas].reverse();
 
   const handleCloseModalNew = () => setOpenModalNew(false);
   const handleOpenModalNew = () => setOpenModalNew(true);
@@ -75,7 +82,12 @@ export default function Cajas() {
       </Header>
 
       <ListaCajas>
-        {cajas.map((caja, index) => {
+        {reverseCajas.length === 0 && (
+          <Message>
+            Aún no hay cajas registradas click en el boton para agregar una
+          </Message>
+        )}
+        {reverseCajas.map((caja, index) => {
           return (
             <Item key={index}>
               <Caja
@@ -108,7 +120,7 @@ export default function Cajas() {
         open={openModalUpdate}
         onClose={handleCloseModalUpdate}
       >
-        <h3>xd</h3>
+        <FormUpdateCaja box={boxSelected} onClose={handleCloseModalUpdate} />
       </Modal>
 
       <ScrollToUp />

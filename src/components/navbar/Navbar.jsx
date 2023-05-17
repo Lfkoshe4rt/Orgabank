@@ -14,10 +14,12 @@ import {
   Title,
   TopNav,
 } from "./styled";
+import { useAppSelector } from "../../hooks/store";
 
 const Navbar = () => {
   const [active, setActive] = useState(true);
   const [selected, setSelected] = useState(PrivateRoutes.HOME);
+  const { username } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     setSelected(window.location.pathname.slice(1));
@@ -77,7 +79,7 @@ const Navbar = () => {
           </Center>
         </NavLink>
 
-        <Dropdown handleActive={handleActive} title="Starkusca">
+        <Dropdown handleActive={handleActive} title={username}>
           <Logout
             onClick={() => handleSelected(PublicRoutes.LOGIN)}
             to={PublicRoutes.LOGIN}

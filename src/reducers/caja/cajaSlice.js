@@ -35,6 +35,19 @@ export const cajaSlice = createSlice({
     },
 
     updateCaja: (state, action) => {
+      console.log(action.payload);
+      const index = state.cajas.findIndex(
+        (item) => item._id === action.payload._id
+      );
+      if (index >= 0) {
+        state.cajas[index] = action.payload;
+      }
+
+      persistLocalStorage(KEY, state);
+      return state;
+    },
+
+    addNewCaja: (state, action) => {
       persistLocalStorage(KEY, { cajas: [...state.cajas, action.payload] });
       return { cajas: [...state.cajas, action.payload] };
     },
@@ -47,10 +60,29 @@ export const cajaSlice = createSlice({
        */
       return action.payload;
     },
+
+    replaceCaja: (state, action) => {
+      const index = state.cajas.findIndex(
+        (item) => item.alias === action.payload.alias
+      );
+
+      if (index >= 0) {
+        state.cajas[index] = action.payload;
+      }
+
+      persistLocalStorage(KEY, state);
+      return state;
+    },
   },
 });
 
-export const { setCaja, resetCaja, updateCaja, rollBackCaja } =
-  cajaSlice.actions;
+export const {
+  setCaja,
+  resetCaja,
+  addNewCaja,
+  rollBackCaja,
+  updateCaja,
+  replaceCaja,
+} = cajaSlice.actions;
 
 export default cajaSlice.reducer;
