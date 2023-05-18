@@ -5,7 +5,7 @@ export const FormLoginStyled = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 100vh;
   width: 100%;
   background-color: #f5f5f5;
 
@@ -14,28 +14,34 @@ export const FormLoginStyled = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 30%;
-    height: 50%;
+    width: 500px;
+    height: 400px;
     background-color: #fff;
     border-radius: 10px;
 
     @media (max-width: 768px) {
-      width: 50%;
-    }
-
-    @media (max-width: 425px) {
       width: 70%;
     }
 
-    @media (max-width: 375px) {
+    @media (max-width: 520px) {
       width: 80%;
+    }
+
+    @media (max-width: 375px) {
+      width: 90%;
+    }
+
+    img {
+      margin-top: 20px;
+      width: 50px;
+      height: 50px;
     }
 
     input {
       width: 80%;
       height: 35px;
       margin: 10px;
-      font-size: 20px;
+      font-size: 16px;
       text-align: center;
       color: #4caf50;
       border: 1px solid #ccc;
@@ -44,6 +50,16 @@ export const FormLoginStyled = styled.div`
         outline: none;
         border: 1px solid #4caf50;
         color: black;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+        height: 30px;
+      }
+
+      @media (max-width: 520px) {
+        font-size: 14px;
+        height: 25px;
       }
     }
 
@@ -59,6 +75,16 @@ export const FormLoginStyled = styled.div`
       &:hover {
         cursor: pointer;
         background-color: #43a047;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+        height: 30px;
+      }
+
+      @media (max-width: 520px) {
+        font-size: 14px;
+        height: 25px;
       }
     }
   }
@@ -79,11 +105,20 @@ export const FormLoginStyledTitle = styled.h1`
     color: #4caf50;
     font-size: 36px;
     font-weight: 600;
+    display: flex;
 
     &:hover {
       cursor: pointer;
       text-decoration: underline;
       color: #43a047;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 32px;
+    }
+
+    @media (max-width: 520px) {
+      font-size: 28px;
     }
   }
 

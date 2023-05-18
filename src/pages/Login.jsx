@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { FormLogin } from "../components/resource-form/formLogin";
+import { FormLogin } from "../components/resource-form";
 import { useNavigate } from "react-router-dom";
 import { useUserActions } from "../hooks/useUserActions";
 import { useCajaActions } from "../hooks/useCajaActions";

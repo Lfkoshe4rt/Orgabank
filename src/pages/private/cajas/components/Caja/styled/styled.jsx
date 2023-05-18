@@ -21,6 +21,10 @@ export const Button = styled.button`
   @media (max-width: 600px) {
     flex-direction: column;
   }
+
+  &:hover {
+    color: #4caf50;
+  }
 `;
 export const Nombre = styled.h3`
   font-size: 1.5rem;

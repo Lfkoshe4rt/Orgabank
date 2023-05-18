@@ -104,7 +104,7 @@ export default function Cajas() {
         onClick={handleOpenModalNew}
         className="m-auto pt-3 pb-3"
       >
-        <RiAddCircleLine color="green" size={40} />
+        <RiAddCircleLine size={40} />
       </InvisibleButton>
 
       <Modal

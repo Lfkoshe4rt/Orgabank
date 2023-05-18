@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Icono from "../../../assets/images/icon.svg";
+
 import { PrivateRoutes } from "../../../Routes/routes";
 import { useCajaActions } from "../../../hooks/useCajaActions";
 
@@ -56,21 +58,34 @@ const FormLogin = () => {
     }
   };
 
+  const removeMessage = () => {
+    setMessage(null);
+  };
+
   return (
     <FormLoginStyled>
       <form onSubmit={onSubmit}>
         <FormLoginStyledTitle>
           <span>ORGA BANK</span>
         </FormLoginStyledTitle>
-        <input type="text" name="username" placeholder="Usuario" required />
         <input
+          type="text"
+          onClick={removeMessage}
+          name="username"
+          placeholder="Usuario"
+          required
+        />
+        <input
+          onClick={removeMessage}
           type="password"
           name="password"
           placeholder="Contraseña"
           required
         />
         <button type="submit">Login</button>
+
         <FormLoginStyledError>{message}</FormLoginStyledError>
+        <img src={Icono} alt="orgabank" />
       </form>
     </FormLoginStyled>
   );

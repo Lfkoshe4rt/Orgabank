@@ -40,4 +40,9 @@ export const InvisibleButton = styled.button`
   background: none;
   cursor: pointer;
   display: block;
+  color: #4caf50;
+
+  &:hover {
+    color: #43a047;
+  }
 `;
