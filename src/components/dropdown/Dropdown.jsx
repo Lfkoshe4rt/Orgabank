@@ -1,39 +1,35 @@
-import React, { useState } from "react";
-import {
-  RiArrowDropDownLine,
-  RiArrowDropUpLine,
-  RiUser2Line,
-} from "react-icons/ri";
+import React, { useRef, useState } from "react";
+import { RiArrowDropDownLine, RiUser2Line } from "react-icons/ri";
 import {
   Center,
+  DropDownContent,
   Dropbtn,
   Dropdown as DropdownSection,
-  DropDownContent,
 } from "./styled/styled";
+import { useEffect } from "react";
 
 const Dropdown = (props) => {
   const { children, title } = props;
   const [active, setActive] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const handleIcon = () => {
-    return active ? (
-      <RiArrowDropUpLine className="ml-0" size={26} />
-    ) : (
-      <RiArrowDropDownLine className="ml-0" size={26} />
-    );
-  };
+  const handleActive = () => setActive(!active);
 
-  const handleActive = () => {
-    setActive(!active);
-  };
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setActive(false);
+      }
+    });
+  }, []);
 
   return (
-    <DropdownSection>
+    <DropdownSection ref={dropdownRef}>
       <Dropbtn className="dropbtn" onClick={() => handleActive()}>
         <Center>
           <RiUser2Line size={22} className="mr-1" />
           {title}
-          {handleIcon()}
+          <RiArrowDropDownLine className="ml-0" size={26} />
         </Center>
       </Dropbtn>
       <DropDownContent active={active}>{children}</DropDownContent>

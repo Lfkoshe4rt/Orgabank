@@ -7,41 +7,64 @@ import httpClient from "../utilities/httpClient";
 const sync = (store) => (next) => async (action) => {
   const { type, payload } = action;
   const previousState = store.getState();
+  const { user } = previousState;
+  const token = user.token;
+
+  const Authorization = { Authorization: `Bearer ${token}` };
 
   next(action);
 
   if (type === "caja/addNewCaja") {
     try {
-      const response = await httpClient.post("/caja", { data: payload });
-      const { message, data } = response;
-
-      if (message !== "Caja created") {
-        throw new Error("No se puedo registrar la caja");
-      }
+      const response = await httpClient.post("/caja", {
+        data: payload,
+        headers: Authorization,
+      });
+      const { data } = response;
 
       store.dispatch(replaceCaja(data));
 
       toast.success("Caja registrada con successo");
     } catch (err) {
-      console.log(err);
-      toast.error("Error al intentar registrar la caja");
+      const { message } = err.response.data;
+      toast.error(message);
       store.dispatch(setCaja(previousState.caja));
     }
   }
 
   if (type === "caja/updateCaja") {
     try {
-      const response = await httpClient.put("/caja", { data: payload });
+      const response = await httpClient.put("/caja", {
+        data: payload,
+        headers: Authorization,
+      });
       const { status } = response;
-
-      if (status !== "OK") {
-        throw new Error("No se puedo registrar la caja");
-      }
 
       toast.success("Caja modificada con successo");
     } catch (err) {
       console.log(err);
       toast.error("Error al intentar modificar la caja");
+      store.dispatch(setCaja(previousState.caja));
+    }
+  }
+
+  if (type === "caja/removeCaja") {
+    try {
+      const response = await httpClient.delete(`/caja/${payload}`, {
+        headers: Authorization,
+      });
+
+      const { status } = response;
+
+      if (status !== "OK") {
+        throw new Error();
+      }
+
+      toast.success("Caja eliminada con successo");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al intentar eliminar la caja");
+
       store.dispatch(setCaja(previousState.caja));
     }
   }

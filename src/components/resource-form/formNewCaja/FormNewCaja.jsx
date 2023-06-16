@@ -24,19 +24,53 @@ const FormNewCaja = ({ onClose }) => {
     const moneda = form.get("moneda");
     const banco = form.get("banco");
 
+    const check = () => {
+      if (caja.alias === "") {
+        toast.warn("El nombre no puede estar vacio");
+        return false;
+      }
+
+      if (caja.moneda === "") {
+        toast.warn("El nombre no puede estar vacio");
+        return false;
+      }
+
+      if (caja.banco === "") {
+        toast.warn("El nombre no puede estar vacio");
+        return false;
+      }
+
+      if (isNaN(caja.saldo)) {
+        toast.warn("El monto debe ser un numero");
+        return false;
+      }
+
+      if (caja.saldo < 0) {
+        toast.warn("El monto debe ser mayor a 0");
+        return false;
+      }
+
+      const exist = cajas.some((caja) => caja.alias === alias);
+
+      if (exist) {
+        toast.warn("Ya se registro una caja con ese nombre");
+        return false;
+      }
+
+      return true;
+    };
+
     const caja = {
       alias,
       saldo: Number(saldo),
       moneda,
       banco,
-      user: _id /* id: uuID(), */,
+      user: _id,
     };
 
-    const exist = cajas.some((c) => c.alias === alias);
+    const isValid = check();
 
-    if (exist) {
-      toast.warn("Ya se registro una caja con ese nombre");
-    } else {
+    if (isValid) {
       addNewCaja(caja);
       onClose();
 
@@ -76,11 +110,23 @@ const FormNewCaja = ({ onClose }) => {
       </InputGroup>
 
       <div className="d-flex justify-end">
-        <Button type="submit" color="#80ff80" className="mr-2">
+        <Button
+          type="submit"
+          colorText="white"
+          color="#39853c"
+          colorHover="#2a6f2a"
+          className="mr-2"
+        >
           Guardar
         </Button>
 
-        <Button type="button" color="#ff8080" onClick={onClose}>
+        <Button
+          type="button"
+          colorText="white"
+          color="#f02f2f"
+          colorHover="#b90909"
+          onClick={onClose}
+        >
           Cancelar
         </Button>
       </div>

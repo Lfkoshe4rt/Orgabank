@@ -9,6 +9,7 @@ export const Card = styled.div`
   display: flex;
   justify-content: space-between;
   border-left: 2px solid ${(props) => props.color};
+  border-top: 1px solid ${(props) => props.color};
 `;
 
 export const Button = styled.button`
@@ -23,12 +24,15 @@ export const Button = styled.button`
   }
 
   &:hover {
-    color: #4caf50;
+    color: #09350b;
   }
 `;
 export const Nombre = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 5px;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  font-weight: bold;
 `;
 
 export const List = styled.ul`
@@ -46,4 +50,8 @@ export const Item = styled.li`
   font-size: 1.1rem;
   margin: 5px 5px 0 0;
   padding: 0 5px 0 0;
+
+  span {
+    font-weight: bold;
+  }
 `;

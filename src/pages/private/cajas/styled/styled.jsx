@@ -28,9 +28,11 @@ export const Container = styled.div`
 export const Cajas = styled.div`
   width: 100%;
 `;
+
 export const ListaCajas = styled.ul`
   list-style: none;
 `;
+
 export const Item = styled.li`
   padding: 5px;
 `;
@@ -38,11 +40,11 @@ export const Item = styled.li`
 export const InvisibleButton = styled.button`
   border: none;
   background: none;
-  cursor: pointer;
+
   display: block;
   color: #4caf50;
 
   &:hover {
-    color: #43a047;
+    color: #3b8640;
   }
 `;

@@ -43,7 +43,7 @@ export const FormLoginStyled = styled.div`
       margin: 10px;
       font-size: 16px;
       text-align: center;
-      color: #4caf50;
+
       border: 1px solid #ccc;
 
       &:focus {

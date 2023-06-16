@@ -1,13 +1,9 @@
 import { Button as ButtonStyled } from "./styled";
 
 const Button = (props) => {
-  const { children, color, onClick, className } = props;
+  const { children, color, onClick, className, colorText, type } = props;
 
-  return (
-    <ButtonStyled onClick={onClick} color={color} className={className}>
-      {children}
-    </ButtonStyled>
-  );
+  return <ButtonStyled {...props}>{children}</ButtonStyled>;
 };
 
 export default Button;

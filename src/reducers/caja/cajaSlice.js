@@ -35,7 +35,6 @@ export const cajaSlice = createSlice({
     },
 
     updateCaja: (state, action) => {
-      console.log(action.payload);
       const index = state.cajas.findIndex(
         (item) => item._id === action.payload._id
       );
@@ -52,8 +51,20 @@ export const cajaSlice = createSlice({
       return { cajas: [...state.cajas, action.payload] };
     },
 
+    removeCaja: (state, action) => {
+      const index = state.cajas.findIndex(
+        (item) => item._id === action.payload
+      );
+
+      if (index >= 0) {
+        state.cajas.splice(index, 1);
+      }
+
+      persistLocalStorage(KEY, state);
+      return state;
+    },
+
     rollBackCaja: (state, action) => {
-      console.log(state.cajas);
       /* 
       const existeCaja = state.cajas.some()
       persistLocalStorage(KEY, action.payload);
@@ -83,6 +94,7 @@ export const {
   rollBackCaja,
   updateCaja,
   replaceCaja,
+  removeCaja,
 } = cajaSlice.actions;
 
 export default cajaSlice.reducer;

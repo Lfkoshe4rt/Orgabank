@@ -1,17 +1,20 @@
 import { useState } from "react";
+
 import { RiAddCircleLine } from "react-icons/ri";
 import { ToastContainer } from "react-toastify";
 
 import { CardMetric } from "../../../components/cardMetric";
 import { Modal } from "../../../components/modal";
-import { FormNewCaja, FormUpdateCaja } from "../../../components/resource-form";
 import { ScrollToUp } from "../../../components/scrollToUp";
-import { Caja } from "./components/Caja";
-import { Message } from "./components/message";
+import { FormNewCaja, FormUpdateCaja } from "../../../components/resource-form";
 
 import { useAppSelector } from "../../../hooks/store";
 
 import { getAmountAllBoxes } from "../../../utilities/getMoney";
+
+import { Caja } from "./components/Caja";
+import { Filter } from "./components/Filter";
+import { Message } from "./components/message";
 
 import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 
@@ -19,17 +22,23 @@ export default function Cajas() {
   const [openModalNew, setOpenModalNew] = useState(false);
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [boxSelected, setBoxSelected] = useState({});
+  const [filter, setFilter] = useState("ALL");
   const { cajas } = useAppSelector((state) => state.caja);
-
   const { acc } = getAmountAllBoxes({ cajas });
-
   const reverseCajas = [...cajas].reverse();
 
-  const handleCloseModalNew = () => setOpenModalNew(false);
-  const handleOpenModalNew = () => setOpenModalNew(true);
+  const togleModalNew = () => setOpenModalNew(!openModalNew);
+  const togleModalUpdate = () => setOpenModalUpdate(!openModalUpdate);
 
-  const handleCloseModalUpdate = () => setOpenModalUpdate(false);
-  const handleOpenModalUpdate = () => setOpenModalUpdate(true);
+  const filteredList = reverseCajas.filter((caja) => {
+    if (filter === "ALL") return caja;
+
+    if (filter === "UYU") return caja.moneda === filter;
+
+    if (filter === "USD") return caja.moneda === filter;
+
+    if (filter === "R$") return caja.moneda === filter;
+  });
 
   return (
     <>
@@ -81,46 +90,46 @@ export default function Cajas() {
         </Lista>
       </Header>
 
-      <ListaCajas>
-        {reverseCajas.length === 0 && (
-          <Message>
-            Aún no hay cajas registradas click en el boton para agregar una
-          </Message>
-        )}
-        {reverseCajas.map((caja, index) => {
-          return (
-            <Item key={index}>
-              <Caja
-                caja={caja}
-                setBoxSelected={setBoxSelected}
-                openUpdateModal={handleOpenModalUpdate}
-              />
-            </Item>
-          );
-        })}
-      </ListaCajas>
+      {reverseCajas.length === 0 && (
+        <Message>
+          Aún no hay cajas registradas click en el boton para registrar una
+        </Message>
+      )}
 
-      <InvisibleButton
-        onClick={handleOpenModalNew}
-        className="m-auto pt-3 pb-3"
-      >
+      <div>
+        {reverseCajas.length > 0 && (
+          <Filter setFilter={setFilter} filter={filter} />
+        )}
+
+        <ListaCajas>
+          {filteredList.map((caja, index) => {
+            return (
+              <Item key={index}>
+                <Caja
+                  caja={caja}
+                  setBoxSelected={setBoxSelected}
+                  openUpdateModal={togleModalUpdate}
+                />
+              </Item>
+            );
+          })}
+        </ListaCajas>
+      </div>
+
+      <InvisibleButton onClick={togleModalNew} className="m-auto pt-3 pb-3">
         <RiAddCircleLine size={40} />
       </InvisibleButton>
 
-      <Modal
-        title="Agregar caja"
-        open={openModalNew}
-        onClose={handleCloseModalNew}
-      >
-        <FormNewCaja onClose={handleCloseModalNew} />
+      <Modal title="Agregar caja" open={openModalNew} togle={togleModalNew}>
+        <FormNewCaja onClose={togleModalNew} />
       </Modal>
 
       <Modal
         title="Modificar caja"
         open={openModalUpdate}
-        onClose={handleCloseModalUpdate}
+        togle={togleModalUpdate}
       >
-        <FormUpdateCaja box={boxSelected} onClose={handleCloseModalUpdate} />
+        <FormUpdateCaja box={boxSelected} onClose={togleModalUpdate} />
       </Modal>
 
       <ScrollToUp />

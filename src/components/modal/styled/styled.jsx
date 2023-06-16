@@ -1,6 +1,30 @@
 import styled from "styled-components";
+import { AiOutlineClose } from "react-icons/ai";
 
-export const Container = styled.div`
+/** hover AiOutlineClose */
+export const IconClose = styled(AiOutlineClose)`
+  font-size: 26px;
+  color: white;
+
+  &:hover {
+    color: #bdbdbd;
+  }
+`;
+
+export const Animation = styled.div`
+  animation: fadeIn 0.4s;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
+export const Background = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -13,49 +37,34 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Mdal = styled.div`
-  width: 700px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
-
-  @media (max-width: 768px) {
-    width: 360px;
-  }
-
-  @media (max-width: 370px) {
-    width: 300px;
-  }
-`;
-
-export const Centrar = styled.div`
-  position: fixed;
+export const ModalWrapper = styled.div`
+  width: 800px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #000;
+  position: relative;
   z-index: 3;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+  border-radius: 10px;
 
-export const Line = styled.hr`
-  margin: 5px;
-`;
+  @media (max-width: 820px) {
+    width: 600px;
+  }
 
-export const BodyModal = styled.div`
-  padding: 10px;
+  @media (max-width: 620px) {
+    width: 400px;
+  }
 
-  @media (max-height: 520px) {
-    padding: 0 5px;
+  @media (max-width: 420px) {
+    width: 300px;
   }
 `;
 
 export const Title = styled.h2`
   font-size: 23px;
   font-weight: bold;
-  color: black;
-  text-decoration: underline;
-  @media (max-height: 520px) {
-    font-size: 20px;
-  }
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 `;
 
 export const HeaderModal = styled.div`
@@ -64,14 +73,13 @@ export const HeaderModal = styled.div`
   align-items: center;
   height: 70px;
   padding: 10px;
-  color: black;
+
   font-weight: bold;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #cccccc;
+  background-color: #4caf50;
+`;
 
-  @media (max-height: 520px) {
-    height: 40px;
-    padding: 5px;
-  }
+export const BodyModal = styled.div`
+  padding: 0 10px 10px 10px;
 `;

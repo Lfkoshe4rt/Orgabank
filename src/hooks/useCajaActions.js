@@ -3,6 +3,7 @@ import {
   setCaja,
   updateCaja as updateOneCaja,
   addNewCaja as addOneCaja,
+  removeCaja as removeOneCaja,
 } from "../reducers/caja/cajaSlice";
 import { useAppDispatch } from "./store";
 
@@ -25,10 +26,15 @@ export const useCajaActions = () => {
     dispatch(addOneCaja(caja));
   };
 
+  const removeCaja = (caja) => {
+    dispatch(removeOneCaja(caja));
+  };
+
   return {
     addCaja,
     refreshCaja,
     addNewCaja,
     updateCaja,
+    removeCaja,
   };
 };

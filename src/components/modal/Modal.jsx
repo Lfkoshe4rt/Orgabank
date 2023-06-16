@@ -1,33 +1,40 @@
-import { AiOutlineClose } from "react-icons/ai";
-import InvisibleButton from "../invisibleButton/InvisibleButton";
-
+import { useRef } from "react";
 import {
+  Background,
   BodyModal,
-  Centrar,
-  Container,
   HeaderModal,
-  Mdal,
+  IconClose,
+  ModalWrapper,
   Title,
+  Animation,
 } from "./styled";
 
-const Modal = ({ open, onClose, title, children }) => {
-  if (!open) return null;
+const Modal = ({ open, togle, title, children }) => {
+  const modalRef = useRef();
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      togle();
+    }
+  };
 
   return (
     <>
-      <Container onClick={onClose} />
-      <Centrar>
-        <Mdal>
-          <HeaderModal>
-            <Title>{title}</Title>
-            <InvisibleButton onClick={onClose}>
-              <AiOutlineClose color="black" size={26} />
-            </InvisibleButton>
-          </HeaderModal>
-          <BodyModal>{children}</BodyModal>
-          {/* <Line /> */}
-        </Mdal>
-      </Centrar>
+      {open && (
+        <>
+          <Background ref={modalRef} onClick={closeModal}>
+            <Animation>
+              <ModalWrapper>
+                <HeaderModal>
+                  <Title>{title}</Title>
+                  <IconClose onClick={togle} />
+                </HeaderModal>
+                <BodyModal>{children}</BodyModal>
+              </ModalWrapper>
+            </Animation>
+          </Background>
+        </>
+      )}
     </>
   );
 };

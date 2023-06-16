@@ -10,8 +10,13 @@ import { Select } from "../../select";
 
 const FormUpdateCaja = (props) => {
   const { box, onClose } = props;
-  const { updateCaja } = useCajaActions();
+  const { updateCaja, removeCaja } = useCajaActions();
   const { cajas } = useAppSelector((state) => state.caja);
+
+  const onDelete = async () => {
+    removeCaja(box._id);
+    onClose();
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -71,16 +76,34 @@ const FormUpdateCaja = (props) => {
       </InputGroup>
 
       <div className="d-flex justify-between">
-        <Button type="button" color="#f75050">
+        <Button
+          onClick={onDelete}
+          type="button"
+          colorText="white"
+          color="#f02f2f"
+          colorHover="#b90909"
+        >
           Eliminar
         </Button>
 
         <div>
-          <Button type="submit" color="#80ff80" className="mr-2">
+          <Button
+            type="submit"
+            colorText="white"
+            color="#39853c"
+            colorHover="#2a6f2a"
+            className="mr-2"
+          >
             Guardar
           </Button>
 
-          <Button type="button" color="#ff8080" onClick={onClose}>
+          <Button
+            type="button"
+            colorText="white"
+            color="#f02f2f"
+            colorHover="#b90909"
+            onClick={onClose}
+          >
             Cancelar
           </Button>
         </div>

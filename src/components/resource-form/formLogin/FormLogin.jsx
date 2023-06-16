@@ -42,9 +42,11 @@ const FormLogin = () => {
       const { status, data } = response;
 
       if (status === "OK") {
-        addUser({ ...data, token: Date.now().toString() });
+        const { user, token } = data;
 
-        addCaja({ cajas: data.cajas });
+        addUser({ ...user, token });
+
+        addCaja({ cajas: user.cajas });
 
         navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
       }

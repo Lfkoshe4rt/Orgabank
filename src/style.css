@@ -25,9 +25,6 @@
 body {
   background-color: #f2f2f2;
   scrollbar-width: none;
-
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
 }
 
 .inter-light {

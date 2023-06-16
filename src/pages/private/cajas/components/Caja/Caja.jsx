@@ -17,9 +17,15 @@ const Caja = (props) => {
       <div>
         <Nombre>{alias}</Nombre>
         <List>
-          <Item>Saldo: {saldo}</Item>
-          <Item>Moneda: {moneda}</Item>
-          <Item>Banco: {banco}</Item>
+          <Item>
+            Saldo: <span>{saldo}</span>
+          </Item>
+          <Item>
+            Moneda: <span>{moneda}</span>
+          </Item>
+          <Item>
+            Banco:<span> {banco}</span>
+          </Item>
         </List>
       </div>
 
