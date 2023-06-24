@@ -37,16 +37,16 @@ const FormLogin = () => {
     };
 
     try {
-      const response = await httpClient.post("/user/login", { data: user });
+      const response = await httpClient.post("/auth", { data: user });
 
       const { status, data } = response;
 
       if (status === "OK") {
-        const { user, token } = data;
+        const { cajas } = data;
 
-        addUser({ ...user, token });
+        addUser(data);
 
-        addCaja({ cajas: user.cajas });
+        addCaja({ cajas });
 
         navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
       }
