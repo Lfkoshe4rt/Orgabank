@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import cajaReducer, { replaceCaja, setCaja } from "../reducers/caja/cajaSlice";
 import userReducer from "../reducers/user/userSlice";
+import movementReducer from "../reducers/movement/movementSlice";
 import httpClient from "../utilities/httpClient";
 
 const sync = (store) => (next) => async (action) => {
@@ -74,6 +75,7 @@ export default configureStore({
   reducer: {
     user: userReducer,
     caja: cajaReducer,
+    movement: movementReducer,
   },
   middleware: [sync],
 });

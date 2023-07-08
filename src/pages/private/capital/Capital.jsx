@@ -1,162 +1,227 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import styled from "styled-components";
+import { ScrollToUp } from "../../../components/scrollToUp";
+import { useAppSelector } from "../../../hooks/store";
+import { CardMetric } from "../../../components/cardMetric";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { useEffect } from "react";
+
+const Table = styled.table`
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  width: 100%;
+  margin: 0 auto;
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4caf50;
+    color: white;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    white-space: nowrap;
+  }
+  tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  tr:hover {
+    background-color: #ddd;
+  }
+`;
+
+const ButtonSearchMore = styled.button`
+  display: ${({ showMore }) => (showMore ? "block" : "none")};
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #ddd;
+  }
+`;
+
+const ChartContainer = styled.div`
+  width: 70%;
+  height: 300px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding-left: 20px;
+
+  @media (max-width: 768px) {
+    margin: 20px 0;
+    gap: 20px;
+    padding: 0;
+  }
+`;
+
 export default function Dashboard() {
-  const defaultBolsa = {
-    descripcion: "",
-    porcentaje: 0,
-    cantidad: 0,
-    moneda: "",
-    banco: "",
-  };
+  const { _id } = useAppSelector((state) => state.user);
+  const { movements } = useAppSelector((state) => state.movement);
+  const [rowsToshow, setRowsToShow] = useState(10);
+  const [showMore, setShowMore] = useState(false);
 
-  const { _id, token } = useSelector((state) => state.user);
-  const [bolsa, setBolsa] = useState(defaultBolsa);
-  const [data, setData] = useState([]);
-  const total = localStorage.getItem("total");
-  const navigate = useNavigate();
+  const reversedMovements = [...movements].reverse();
 
-  const handleOnChange = (e) => {
-    setBolsa({
-      ...bolsa,
-      [e.target.name]: e.target.value,
-    });
-  };
+  let totalMovement = 0;
 
-  useEffect(() => {
-    setBolsa({
-      ...bolsa,
-      cantidad: (total * Number(bolsa.porcentaje)) / 1000,
-    });
-  }, [bolsa.porcentaje]);
-
-  useEffect(() => {
-    const bolsas = JSON.parse(localStorage.getItem("bolsas"));
-    if (bolsas) {
-      setData(bolsas);
+  const data = reversedMovements.map((movement, indice) => {
+    if (movement.tipo === "entrada") {
+      totalMovement += movement.monto;
+    } else {
+      totalMovement -= movement.monto;
     }
-  }, []);
+    return {
+      cantidad: movement.tipo === "entrada" ? movement.monto : -movement.monto,
+      monto: totalMovement,
+    };
+  });
 
-  const getInvertido = () => {
-    let invertido = 0;
-    data.forEach((bolsa) => {
-      invertido += bolsa.cantidad;
-    });
-    return invertido;
+  useEffect(() => {
+    if (movements.length > 10) {
+      setShowMore(true);
+    }
+  }, [movements]);
+
+  const handleShowMore = () => {
+    if (rowsToshow >= movements.length) {
+      setShowMore(false);
+      return;
+    }
+    setRowsToShow((prevRows) => prevRows + 10);
   };
 
-  const totalInvertido = getInvertido();
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setData([...data, bolsa]);
-    console.log(data);
-    setBolsa(defaultBolsa);
-
-    e.target.reset();
-  };
+  const total = movements.reduce((acc, movement) => {
+    if (movement.tipo === "entrada") {
+      return acc + movement.monto;
+    } else {
+      return acc - movement.monto;
+    }
+  }, 0);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>
-        Username: {_id} / Token: {token}
-      </p>
-
-      <h2>Capital total: {total} UYU</h2>
-      <h2>Total invertido: {totalInvertido} UYU</h2>
-
-      <form
-        style={{
-          marginTop: 20,
-          textAlign: "center",
-          border: "1px solid black",
-        }}
-        onSubmit={onSubmit}
-      >
-        <div>
-          <label htmlFor="descripcion">Descripcion: </label>
-          <input
-            type="text"
-            name="descripcion"
-            id="descripcion"
-            onChange={handleOnChange}
-            maxLength={60}
-            minLength={0}
-            required
-            placeholder="Investimientos..."
-          />
-        </div>
-        <div>
-          <label htmlFor="porcentaje">Porcentaje: </label>
-          <input
-            type="number"
-            name="porcentaje"
-            id="porcentaje"
-            onChange={handleOnChange}
-            placeholder="0"
-          />
-        </div>
-        <div>
-          <label htmlFor="cantidad">Cantidad: </label>
-          <input
-            type="number"
-            name="cantidad"
-            defaultValue={bolsa.cantidad > 0 ? bolsa.cantidad : null}
-            id="cantidad"
-            onChange={handleOnChange}
-            placeholder="0"
-          />
-        </div>
-        <div>
-          <label htmlFor="moneda">Moneda: </label>
-          <input
-            type="text"
-            name="moneda"
-            id="moneda"
-            onChange={handleOnChange}
-            placeholder="USD"
-          />
-        </div>
-        <div>
-          <label htmlFor="banco">Banco: </label>
-          <input
-            type="text"
-            name="banco"
-            id="banco"
-            onChange={handleOnChange}
-            placeholder="BBVA"
-          />
-        </div>
-        <button>Registrar bolsa</button>
-      </form>
-      <div
-        style={{
-          display: "flex",
-          textAlign: "center",
-          justifyContent: "center",
-        }}
-      >
-        {data.map((bolsa, index) => {
-          return (
-            <div
-              key={index}
-              style={{
-                border: "solid 2px red",
-                padding: 5,
-                margin: 5,
-                width: "30%",
+    <>
+      <MainContainer>
+        <ChartContainer>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              width={500}
+              height={300}
+              data={data.slice(-10)}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 30,
+                bottom: 5,
               }}
             >
-              <h3>{bolsa.descripcion}</h3>
-              <p>Porcentaje: {bolsa.porcentaje}</p>
-              <p>Cantidad: {bolsa.cantidad}</p>
-              <p>Moneda: {bolsa.moneda}</p>
-              <p>Banco: {bolsa.banco}</p>
-            </div>
-          );
-        })}
+              <Line
+                type="monotone"
+                dataKey="monto"
+                stroke="#00910c"
+                strokeWidth="1px"
+              />
+              <CartesianGrid stroke="#bdbdbd" strokeDasharray="10 10" />
+              <XAxis dataKey="cantidad" />
+              <YAxis />
+              <Tooltip />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+
+        <CardContainer>
+          <CardMetric color="green" titulo="total" value={total} moneda="UYU" />
+          <CardMetric color="green" titulo="total" value={total} moneda="UYU" />
+          <CardMetric color="green" titulo="total" value={total} moneda="UYU" />
+        </CardContainer>
+      </MainContainer>
+
+      <div
+        style={{
+          overflowX: "auto",
+          padding: "30px 0",
+        }}
+      >
+        <Table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Rubro</th>
+              <th>Sub rubro</th>
+              <th>Detalle</th>
+              <th>Monto</th>
+              <th>Moneda</th>
+              <th>Banco</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            {movements.slice(0, rowsToshow).map((movement) => (
+              <tr key={movement._id}>
+                <td
+                  style={{
+                    color: movement.tipo === "entrada" ? "green" : "red",
+                  }}
+                >
+                  {movement.tipo}
+                </td>
+                <td>{movement.rubro}</td>
+                <td>{movement.subRubro}</td>
+                <td>{movement.detalle}</td>
+                <td>{movement.monto}</td>
+                <td>{movement.moneda}</td>
+                <td>{movement.banco}</td>
+                <td>{movement.createdAt.slice(0, 10)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <ButtonSearchMore showMore={showMore} onClick={handleShowMore}>
+          Ver más
+        </ButtonSearchMore>
       </div>
-    </div>
+
+      <ScrollToUp />
+    </>
   );
 }

@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Icono from "../../../assets/images/icon.svg";
 
 import { PrivateRoutes } from "../../../Routes/routes";
-import { useCajaActions } from "../../../hooks/useCajaActions";
 
+import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useUserActions } from "../../../hooks/useUserActions";
+import { useMovementActions } from "../../../hooks/useMovementActions copy";
 
 import httpClient from "../../../utilities/httpClient";
 
@@ -20,6 +21,7 @@ const FormLogin = () => {
   const navigate = useNavigate();
   const { addUser } = useUserActions();
   const { addCaja } = useCajaActions();
+  const { addMovement } = useMovementActions();
 
   const [message, setMessage] = useState(null);
 
@@ -42,11 +44,15 @@ const FormLogin = () => {
       const { status, data } = response;
 
       if (status === "OK") {
-        const { cajas } = data;
+        const { cajas, movements } = data;
+
+        console.log(data);
 
         addUser(data);
 
         addCaja({ cajas });
+
+        addMovement({ movements });
 
         navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
       }

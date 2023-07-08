@@ -11,7 +11,7 @@ const DEFAULT_STATE = {
 const KEY = "reduxStateCaja";
 
 const initialState = (() => {
-  const persistedState = localStorage.getItem("reduxStateCaja");
+  const persistedState = localStorage.getItem(KEY);
 
   if (persistedState) {
     return JSON.parse(persistedState);
