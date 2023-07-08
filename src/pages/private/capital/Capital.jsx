@@ -1,18 +1,17 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { ScrollToUp } from "../../../components/scrollToUp";
-import { useAppSelector } from "../../../hooks/store";
-import { CardMetric } from "../../../components/cardMetric";
+import { useEffect, useState } from "react";
 import {
-  LineChart,
-  Line,
   CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
-import { useEffect } from "react";
+import styled from "styled-components";
+import { CardMetric } from "../../../components/cardMetric";
+import { ScrollToUp } from "../../../components/scrollToUp";
+import { useAppSelector } from "../../../hooks/store";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -96,12 +95,19 @@ const CardContainer = styled.div`
 `;
 
 const ButtonAddMovement = styled.button`
-  background-color: #4caf50;
-  padding: 5px;
-  color: white;
+  padding: 6px 40px;
+  border: 1px solid rgb(76, 155, 80);
   border-radius: 5px;
-  border: none;
-  width: "200px";
+  background-color: rgb(76, 175, 80);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgb(76, 155, 80);
+  }
 `;
 
 export default function Dashboard() {
@@ -149,6 +155,14 @@ export default function Dashboard() {
   }, 0);
 
   const formatYAxis = (value) => {
+    if (value > 999999999 || value < -999999999) {
+      return `${value / 1000000000}B`;
+    }
+
+    if (value > 999999 || value < -999999) {
+      return `${value / 1000000}M`;
+    }
+
     if (value > 999 || value < -999) {
       return `${value / 1000}k`;
     }
@@ -170,16 +184,7 @@ export default function Dashboard() {
       <MainContainer>
         <ChartContainer>
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              width={500}
-              height={300}
-              data={data.slice(-10)}
-              margin={{
-                top: 5,
-                bottom: 5,
-                left: 0,
-              }}
-            >
+            <LineChart width={500} height={300} data={data.slice(-10)}>
               <Line
                 type="monotone"
                 dataKey="monto"
