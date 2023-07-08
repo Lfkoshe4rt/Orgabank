@@ -95,6 +95,15 @@ const CardContainer = styled.div`
   }
 `;
 
+const ButtonAddMovement = styled.button`
+  background-color: #4caf50;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  width: "200px";
+`;
+
 export default function Dashboard() {
   const { _id } = useAppSelector((state) => state.user);
   const { movements } = useAppSelector((state) => state.movement);
@@ -139,8 +148,25 @@ export default function Dashboard() {
     }
   }, 0);
 
+  const formatYAxis = (value) => {
+    if (value > 999 || value < -999) {
+      return `${value / 1000}k`;
+    }
+
+    return value;
+  };
+
   return (
     <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row-reverse",
+          marginTop: 10,
+        }}
+      >
+        <ButtonAddMovement>Nuevo movimiento</ButtonAddMovement>
+      </div>
       <MainContainer>
         <ChartContainer>
           <ResponsiveContainer width="100%" height="100%">
@@ -150,9 +176,8 @@ export default function Dashboard() {
               data={data.slice(-10)}
               margin={{
                 top: 5,
-                right: 30,
-                left: 30,
                 bottom: 5,
+                left: 0,
               }}
             >
               <Line
@@ -163,7 +188,7 @@ export default function Dashboard() {
               />
               <CartesianGrid stroke="#bdbdbd" strokeDasharray="10 10" />
               <XAxis dataKey="cantidad" />
-              <YAxis />
+              <YAxis tickFormatter={formatYAxis} />
               <Tooltip />
             </LineChart>
           </ResponsiveContainer>
