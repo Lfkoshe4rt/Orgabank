@@ -193,7 +193,7 @@ export default function Dashboard() {
               />
               <CartesianGrid stroke="#bdbdbd" strokeDasharray="10 10" />
               <XAxis dataKey="cantidad" />
-              <YAxis tickFormatter={formatYAxis} />
+              <YAxis width={40} tickFormatter={formatYAxis} />
               <Tooltip />
             </LineChart>
           </ResponsiveContainer>
