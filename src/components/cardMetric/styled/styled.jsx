@@ -10,11 +10,7 @@ export const Card = styled.div`
   height: 80px;
   width: 220px;
 
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-
-  @media (max-width: 730px) {
+  @media (max-width: 731px) {
     width: 100%;
   }
 `;

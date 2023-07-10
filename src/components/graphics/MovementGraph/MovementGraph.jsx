@@ -52,7 +52,7 @@ const MovementGraph = (props) => {
             type="monotone"
             dataKey="monto"
             stroke="#00910c"
-            strokeWidth="1px"
+            strokeWidth="1.2px"
           />
           <CartesianGrid stroke="#bdbdbd" strokeDasharray="10 10" />
           <XAxis dataKey="cantidad" />

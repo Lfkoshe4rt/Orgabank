@@ -10,7 +10,7 @@ const MainContainer = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 731px) {
     flex-direction: column;
     gap: 20px;
   }
@@ -21,9 +21,8 @@ const CardContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  padding-left: 20px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 731px) {
     margin: 20px 0;
     gap: 20px;
     padding: 0;
@@ -46,7 +45,8 @@ const ButtonAddMovement = styled.button`
   }
 
   @media (max-width: 320px) {
-    padding: 6px 25px;
+    width: 100%;
+    padding: 3px;
   }
 `;
 
@@ -55,14 +55,6 @@ const ButtonAddContainer = styled.div`
   justify-content: flex-end;
   margin-bottom: 20px;
   margin-top: 10px;
-
-  @media (max-width: 817px) {
-    justify-content: flex-start;
-  }
-
-  @media (max-width: 320px) {
-    justify-content: center;
-  }
 `;
 
 export default function Dashboard() {
