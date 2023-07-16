@@ -2,7 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import cajaReducer, { replaceCaja, setCaja } from "../reducers/caja/cajaSlice";
 import userReducer from "../reducers/user/userSlice";
-import movementReducer from "../reducers/movement/movementSlice";
+import movementReducer, {
+  setMovement,
+} from "../reducers/movement/movementSlice";
 import httpClient from "../utilities/httpClient";
 
 const sync = (store) => (next) => async (action) => {
@@ -14,6 +16,19 @@ const sync = (store) => (next) => async (action) => {
   const Authorization = { Authorization: `Bearer ${token}` };
 
   next(action);
+
+  if (type === "movement/addNewMovement") {
+    try {
+      const response = await httpClient.post("/movement", { data: payload });
+      const { data } = response;
+
+      console.log("Replace movement");
+      toast.success("Movimiento registrado con successo");
+    } catch (err) {
+      const { message } = err.response.data;
+      toast.error(message);
+    }
+  }
 
   if (type === "caja/addNewCaja") {
     try {

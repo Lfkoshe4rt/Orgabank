@@ -7,7 +7,7 @@ import { PrivateRoutes } from "../../../Routes/routes";
 
 import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useUserActions } from "../../../hooks/useUserActions";
-import { useMovementActions } from "../../../hooks/useMovementActions copy";
+import { useMovementActions } from "../../../hooks/useMovementActions";
 
 import httpClient from "../../../utilities/httpClient";
 

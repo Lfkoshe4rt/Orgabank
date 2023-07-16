@@ -5,8 +5,8 @@ export const Input = styled.input`
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-
+  /* 
   @media (max-height: 520px) {
     padding: 0 5px;
-  }
+  } */
 `;

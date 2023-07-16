@@ -12,6 +12,10 @@ const MovementTable = (props) => {
     }
   }, [data]);
 
+  const generateTemporalId = () => {
+    return Math.random().toString(24);
+  };
+
   const handleShowMore = () => {
     if (rowsToshow >= data.length) {
       setShowMore(false);
@@ -19,6 +23,8 @@ const MovementTable = (props) => {
     }
     setRowsToShow((prevRows) => prevRows + 10);
   };
+
+  const reverseData = [...data].reverse();
 
   return (
     <>
@@ -41,8 +47,8 @@ const MovementTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            {data.slice(0, rowsToshow).map((movement) => (
-              <tr key={movement._id}>
+            {reverseData./* slice(0, rowsToshow). */ map((movement) => (
+              <tr key={movement._id || generateTemporalId()}>
                 <td
                   style={{
                     color: movement.tipo === "entrada" ? "green" : "red",

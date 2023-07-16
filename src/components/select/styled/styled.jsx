@@ -6,7 +6,4 @@ export const Select = styled.select`
   border: 1px solid #ccc;
   background-color: #fff;
   border-radius: 5px;
-  @media (max-height: 520px) {
-    padding: 0 5px;
-  }
 `;

@@ -3,6 +3,7 @@ import {
   resetMovement,
   updateMovement,
   updateMovementUser,
+  addNewMovement,
 } from "../reducers/movement/movementSlice";
 
 import { useAppDispatch } from "./store";
@@ -12,6 +13,10 @@ export const useMovementActions = () => {
 
   const addMovement = (movement) => {
     dispatch(setMovement(movement));
+  };
+
+  const addOneMovement = (movement) => {
+    dispatch(addNewMovement(movement));
   };
 
   const refreshMovement = () => {
@@ -31,5 +36,6 @@ export const useMovementActions = () => {
     ModifyUserMovement,
     modifyMovement,
     refreshMovement,
+    addOneMovement,
   };
 };

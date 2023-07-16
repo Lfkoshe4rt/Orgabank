@@ -30,9 +30,7 @@ const MovementGraph = (props) => {
     return value;
   };
 
-  const reversedMovements = [...data].reverse();
-
-  const dataGraph = reversedMovements.map((movement, indice) => {
+  const dataGraph = data.map((movement, indice) => {
     if (movement.tipo === "entrada") {
       totalMovement += movement.monto;
     } else {

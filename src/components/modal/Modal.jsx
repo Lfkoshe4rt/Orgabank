@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import {
+  Animation,
   Background,
   BodyModal,
   HeaderModal,
   IconClose,
   ModalWrapper,
   Title,
-  Animation,
 } from "./styled";
 
 const Modal = ({ open, togle, title, children }) => {

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  persistLocalStorage,
   clearLocalStorage,
+  persistLocalStorage,
 } from "../../utilities/persistLocalStorage";
 
 const DEFAULT_STATE = {
@@ -40,6 +40,13 @@ export const movementSlice = createSlice({
       return;
     },
 
+    addNewMovement: (state, action) => {
+      persistLocalStorage(KEY, {
+        movements: [...state.movements, action.payload],
+      });
+      return { movements: [...state.movements, action.payload] };
+    },
+
     updateMovementUser: (state, action) => {
       console.log("updateMovementUser");
       return;
@@ -52,6 +59,7 @@ export const {
   resetMovement,
   updateMovement,
   updateMovementUser,
+  addNewMovement,
 } = movementSlice.actions;
 
 export default movementSlice.reducer;

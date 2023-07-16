@@ -4,6 +4,9 @@ import { MovementGraph } from "../../../components/graphics/MovementGraph";
 import { ScrollToUp } from "../../../components/scrollToUp";
 import { MovementTable } from "../../../components/tables/MovementTable";
 import { useAppSelector } from "../../../hooks/store";
+import { Modal } from "../../../components/modal";
+import { useState } from "react";
+import { FormNewMovement } from "../../../components/resource-form/formNewMovement";
 
 const MainContainer = styled.div`
   display: flex;
@@ -58,8 +61,10 @@ const ButtonAddContainer = styled.div`
 `;
 
 export default function Dashboard() {
+  const [openModal, setOpenModal] = useState(false);
   const { _id } = useAppSelector((state) => state.user);
   const { movements } = useAppSelector((state) => state.movement);
+  const togleModal = () => setOpenModal(!openModal);
 
   const total = movements.reduce((acc, movement) => {
     if (movement.tipo === "entrada") {
@@ -72,9 +77,10 @@ export default function Dashboard() {
   return (
     <>
       <ButtonAddContainer>
-        <ButtonAddMovement>Nuevo movimiento</ButtonAddMovement>
+        <ButtonAddMovement onClick={togleModal}>
+          Nuevo movimiento
+        </ButtonAddMovement>
       </ButtonAddContainer>
-
       <MainContainer>
         <MovementGraph data={movements} />
         <CardContainer>
@@ -86,6 +92,10 @@ export default function Dashboard() {
 
       <MovementTable data={movements} />
       <ScrollToUp />
+
+      <Modal title="Nuevo movimiento" open={openModal} togle={togleModal}>
+        <FormNewMovement onClose={togleModal} />
+      </Modal>
     </>
   );
 }

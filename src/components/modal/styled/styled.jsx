@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
+import styled from "styled-components";
 
 /** hover AiOutlineClose */
 export const IconClose = styled(AiOutlineClose)`
@@ -57,6 +57,10 @@ export const ModalWrapper = styled.div`
   @media (max-width: 420px) {
     width: 300px;
   }
+
+  @media (max-heigth: 540px) {
+    margin: 20px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -65,6 +69,10 @@ export const Title = styled.h2`
   color: white;
   text-transform: uppercase;
   letter-spacing: 1.5px;
+
+  @media (max-width: 330px) {
+    font-size: 20px;
+  }
 `;
 
 export const HeaderModal = styled.div`
@@ -82,4 +90,6 @@ export const HeaderModal = styled.div`
 
 export const BodyModal = styled.div`
   padding: 0 10px 10px 10px;
+  overflow-y: auto;
+  max-height: 85vh;
 `;
