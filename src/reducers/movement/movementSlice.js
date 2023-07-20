@@ -25,9 +25,20 @@ export const movementSlice = createSlice({
   initialState,
   reducers: {
     setMovement: (state, action) => {
-      console.log("a");
       persistLocalStorage(KEY, action.payload);
       return action.payload;
+    },
+
+    replaceMovement: (state, action) => {
+      const index = state.movements.findIndex(
+        (item) =>
+          item.createdAt === action.payload.createdAt &&
+          item.user === action.payload.user
+      );
+
+      if (index >= 0) {
+        state.movements[index] = action.payload;
+      }
     },
 
     resetMovement: () => {
@@ -60,6 +71,7 @@ export const {
   updateMovement,
   updateMovementUser,
   addNewMovement,
+  replaceMovement,
 } = movementSlice.actions;
 
 export default movementSlice.reducer;

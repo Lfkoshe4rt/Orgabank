@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import cajaReducer, { replaceCaja, setCaja } from "../reducers/caja/cajaSlice";
 import userReducer from "../reducers/user/userSlice";
 import movementReducer, {
-  setMovement,
+  replaceMovement,
 } from "../reducers/movement/movementSlice";
 import httpClient from "../utilities/httpClient";
 
@@ -20,9 +20,14 @@ const sync = (store) => (next) => async (action) => {
   if (type === "movement/addNewMovement") {
     try {
       const response = await httpClient.post("/movement", { data: payload });
-      const { data } = response;
+      const { status, data } = response;
 
-      console.log("Replace movement");
+      if (status !== "OK") {
+        throw new Error();
+      }
+
+      store.dispatch(replaceMovement(data));
+
       toast.success("Movimiento registrado con successo");
     } catch (err) {
       const { message } = err.response.data;

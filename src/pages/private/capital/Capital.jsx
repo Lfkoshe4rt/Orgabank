@@ -7,6 +7,7 @@ import { useAppSelector } from "../../../hooks/store";
 import { Modal } from "../../../components/modal";
 import { useState } from "react";
 import { FormNewMovement } from "../../../components/resource-form/formNewMovement";
+import { ToastContainer } from "react-toastify";
 
 const MainContainer = styled.div`
   display: flex;
@@ -96,6 +97,8 @@ export default function Dashboard() {
       <Modal title="Nuevo movimiento" open={openModal} togle={togleModal}>
         <FormNewMovement onClose={togleModal} />
       </Modal>
+
+      <ToastContainer draggablePercent={60} autoClose={4000} />
     </>
   );
 }

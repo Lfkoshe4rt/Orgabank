@@ -24,8 +24,6 @@ const MovementTable = (props) => {
     setRowsToShow((prevRows) => prevRows + 10);
   };
 
-  const reverseData = [...data].reverse();
-
   return (
     <>
       <div
@@ -44,27 +42,44 @@ const MovementTable = (props) => {
               <th>Mneda</th>
               <th>Banco</th>
               <th>Fecha</th>
+              <th>Accion</th>
             </tr>
           </thead>
           <tbody>
-            {reverseData./* slice(0, rowsToshow). */ map((movement) => (
-              <tr key={movement._id || generateTemporalId()}>
-                <td
-                  style={{
-                    color: movement.tipo === "entrada" ? "green" : "red",
-                  }}
-                >
-                  {movement.tipo}
-                </td>
-                <td>{movement.rubro}</td>
-                <td>{movement.subRubro}</td>
-                <td>{movement.detalle}</td>
-                <td>{movement.monto}</td>
-                <td>{movement.moneda}</td>
-                <td>{movement.banco}</td>
-                <td>{movement.createdAt.slice(0, 10)}</td>
-              </tr>
-            ))}
+            {[...data]
+              .reverse()
+              .slice(0, rowsToshow)
+              .map((movement) => (
+                <tr key={movement._id}>
+                  <td
+                    style={{
+                      color: movement.tipo === "entrada" ? "green" : "red",
+                    }}
+                  >
+                    {movement.tipo}
+                  </td>
+                  <td>{movement.rubro}</td>
+                  <td>{movement.subRubro}</td>
+                  <td>{movement.detalle}</td>
+                  <td>{movement.monto}</td>
+                  <td>{movement.moneda}</td>
+                  <td>{movement.banco}</td>
+                  <td>{movement.createdAt.slice(0, 10)}</td>
+                  <td>
+                    {movement?._id !== undefined ? (
+                      <button
+                        onClick={() => {
+                          console.log(movement._id);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    ) : (
+                      <span>Pending</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </TableStyle>
       </div>

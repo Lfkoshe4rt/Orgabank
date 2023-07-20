@@ -36,6 +36,8 @@ const FormNewMovement = ({ onClose }) => {
       createdAt: new Date().toISOString(),
     };
 
+    console.log(movement);
+
     addOneMovement(movement);
 
     //HACER DISPATCH
