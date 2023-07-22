@@ -58,6 +58,19 @@ export const movementSlice = createSlice({
       return { movements: [...state.movements, action.payload] };
     },
 
+    removeMovement: (state, action) => {
+      const index = state.movements.findIndex(
+        (movement) => movement._id === action.payload
+      );
+
+      if (index >= 0) {
+        state.movements.splice(index, 1);
+      }
+
+      persistLocalStorage(KEY, state);
+      return state;
+    },
+
     updateMovementUser: (state, action) => {
       console.log("updateMovementUser");
       return;
@@ -66,6 +79,7 @@ export const movementSlice = createSlice({
 });
 
 export const {
+  removeMovement,
   setMovement,
   resetMovement,
   updateMovement,

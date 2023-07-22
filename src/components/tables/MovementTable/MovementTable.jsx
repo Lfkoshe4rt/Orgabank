@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import { TableStyle, ButtonSearchMore } from "./styled";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { useMovementActions } from "../../../hooks/useMovementActions";
 
 const MovementTable = (props) => {
   const { data } = props;
   const [rowsToshow, setRowsToShow] = useState(10);
   const [showMore, setShowMore] = useState(false);
+  const { removeOneMovement } = useMovementActions();
 
   useEffect(() => {
     if (data.length > 10) {
       setShowMore(true);
     }
   }, [data]);
-
-  const generateTemporalId = () => {
-    return Math.random().toString(24);
-  };
 
   const handleShowMore = () => {
     if (rowsToshow >= data.length) {
@@ -42,7 +41,13 @@ const MovementTable = (props) => {
               <th>Mneda</th>
               <th>Banco</th>
               <th>Fecha</th>
-              <th>Accion</th>
+              <th
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                Accion
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -65,17 +70,20 @@ const MovementTable = (props) => {
                   <td>{movement.moneda}</td>
                   <td>{movement.banco}</td>
                   <td>{movement.createdAt.slice(0, 10)}</td>
-                  <td>
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
                     {movement?._id !== undefined ? (
-                      <button
-                        onClick={() => {
-                          console.log(movement._id);
-                        }}
-                      >
-                        Eliminar
-                      </button>
+                      <RiDeleteBin6Line
+                        style={{ cursor: "pointer" }}
+                        color="red"
+                        onClick={() => removeOneMovement(movement._id)}
+                      ></RiDeleteBin6Line>
                     ) : (
-                      <span>Pending</span>
+                      <span>Loading...</span>
                     )}
                   </td>
                 </tr>

@@ -4,6 +4,7 @@ import {
   updateMovement,
   updateMovementUser,
   addNewMovement,
+  removeMovement,
 } from "../reducers/movement/movementSlice";
 
 import { useAppDispatch } from "./store";
@@ -31,7 +32,12 @@ export const useMovementActions = () => {
     dispatch(updateMovementUser(cajas));
   };
 
+  const removeOneMovement = (id) => {
+    dispatch(removeMovement(id));
+  };
+
   return {
+    removeOneMovement,
     addMovement,
     ModifyUserMovement,
     modifyMovement,
