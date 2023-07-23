@@ -17,6 +17,24 @@ const sync = (store) => (next) => async (action) => {
 
   next(action);
 
+  if (type === "movement/removeMovement") {
+    try {
+      const response = await httpClient.delete(`movement/${payload}`);
+      const { status, data } = response;
+
+      if (status !== "OK") {
+        throw new Error();
+      }
+
+      store.dispatch(replaceMovement(data));
+
+      toast.success("Movimiento eliminado con successo");
+    } catch (err) {
+      const { message } = err.response.data;
+      toast.error(message);
+    }
+  }
+
   if (type === "movement/addNewMovement") {
     try {
       const response = await httpClient.post("/movement", { data: payload });
@@ -27,7 +45,6 @@ const sync = (store) => (next) => async (action) => {
       }
 
       store.dispatch(replaceMovement(data));
-
       toast.success("Movimiento registrado con successo");
     } catch (err) {
       const { message } = err.response.data;
@@ -59,7 +76,12 @@ const sync = (store) => (next) => async (action) => {
         data: payload,
         headers: Authorization,
       });
-      const { status } = response;
+
+      const { status, message } = response;
+
+      if (status !== "OK") {
+        throw new Error();
+      }
 
       toast.success("Caja modificada con successo");
     } catch (err) {

@@ -23,6 +23,14 @@ const MovementTable = (props) => {
     setRowsToShow((prevRows) => prevRows + 10);
   };
 
+  const handleDelete = (id) => {
+    let exec = confirm("Desea eliminar el movimiento?");
+
+    if (exec) {
+      removeOneMovement(id);
+    }
+  };
+
   return (
     <>
       <div
@@ -55,7 +63,7 @@ const MovementTable = (props) => {
               .reverse()
               .slice(0, rowsToshow)
               .map((movement) => (
-                <tr key={movement._id}>
+                <tr key={"tr-" + movement._id}>
                   <td
                     style={{
                       color: movement.tipo === "entrada" ? "green" : "red",
@@ -80,7 +88,7 @@ const MovementTable = (props) => {
                       <RiDeleteBin6Line
                         style={{ cursor: "pointer" }}
                         color="red"
-                        onClick={() => removeOneMovement(movement._id)}
+                        onClick={() => handleDelete(movement._id)}
                       ></RiDeleteBin6Line>
                     ) : (
                       <span>Loading...</span>
