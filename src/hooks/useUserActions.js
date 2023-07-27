@@ -3,7 +3,7 @@ import {
   setUser,
   updateUser,
   updateCajaUser,
-} from "../reducers/user/userSlice";
+} from "../store/slices/user/userSlice";
 import { useAppDispatch } from "./store";
 
 export const useUserActions = () => {

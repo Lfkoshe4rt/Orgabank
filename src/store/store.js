@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import cajaReducer, { replaceCaja, setCaja } from "../reducers/caja/cajaSlice";
-import userReducer from "../reducers/user/userSlice";
+import cajaReducer, { replaceCaja, setCaja } from "./slices/caja/cajaSlice";
+import userReducer from "./slices/user/userSlice";
 import movementReducer, {
   replaceMovement,
-} from "../reducers/movement/movementSlice";
-import httpClient from "../utilities/httpClient";
+} from "./slices/movement/movementSlice";
+import httpClient from "../utils/httpClient";
 
 const sync = (store) => (next) => async (action) => {
   const { type, payload } = action;

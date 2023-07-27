@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   persistLocalStorage,
   clearLocalStorage,
-} from "../../utilities/persistLocalStorage";
+} from "../../../utils/persistLocalStorage";
 
 const DEFAULT_STATE = {
   username: null,

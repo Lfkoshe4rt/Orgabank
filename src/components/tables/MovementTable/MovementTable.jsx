@@ -3,11 +3,14 @@ import { TableStyle, ButtonSearchMore } from "./styled";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useMovementActions } from "../../../hooks/useMovementActions";
 
+import { formatDate } from "../../../utils/formatDate";
+
 const MovementTable = (props) => {
   const { data } = props;
   const [rowsToshow, setRowsToShow] = useState(10);
   const [showMore, setShowMore] = useState(false);
   const { removeOneMovement } = useMovementActions();
+  const { shortDate, getHour } = formatDate();
 
   useEffect(() => {
     if (data.length > 10) {
@@ -49,6 +52,7 @@ const MovementTable = (props) => {
               <th>Mneda</th>
               <th>Banco</th>
               <th>Fecha</th>
+              <th>Hora</th>
               <th
                 style={{
                   textAlign: "center",
@@ -77,7 +81,8 @@ const MovementTable = (props) => {
                   <td>{movement.monto}</td>
                   <td>{movement.moneda}</td>
                   <td>{movement.banco}</td>
-                  <td>{movement.createdAt.slice(0, 10)}</td>
+                  <td>{shortDate(movement.createdAt)}</td>
+                  <td>{getHour(movement.createdAt)}</td>
                   <td
                     style={{
                       display: "flex",

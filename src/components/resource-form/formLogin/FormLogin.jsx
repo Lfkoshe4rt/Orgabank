@@ -9,7 +9,7 @@ import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useUserActions } from "../../../hooks/useUserActions";
 import { useMovementActions } from "../../../hooks/useMovementActions";
 
-import httpClient from "../../../utilities/httpClient";
+import httpClient from "../../../utils/httpClient";
 
 import {
   FormLoginStyled,

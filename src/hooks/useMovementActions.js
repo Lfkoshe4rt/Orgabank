@@ -5,7 +5,7 @@ import {
   updateMovementUser,
   addNewMovement,
   removeMovement,
-} from "../reducers/movement/movementSlice";
+} from "../store/slices/movement/movementSlice";
 
 import { useAppDispatch } from "./store";
 

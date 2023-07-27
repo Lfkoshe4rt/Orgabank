@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   clearLocalStorage,
   persistLocalStorage,
-} from "../../utilities/persistLocalStorage";
+} from "../../../utils/persistLocalStorage";
 
 const DEFAULT_STATE = {
   movements: [],

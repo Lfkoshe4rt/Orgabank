@@ -10,7 +10,7 @@ import { FormNewCaja, FormUpdateCaja } from "../../../components/resource-form";
 
 import { useAppSelector } from "../../../hooks/store";
 
-import { getAmountAllBoxes } from "../../../utilities/getMoney";
+import { getAmountAllBoxes } from "../../../utils/getMoney";
 
 import { Caja } from "./components/Caja";
 import { Filter } from "./components/Filter";

@@ -10,27 +10,14 @@ import {
 
 import { ChartContainer } from "./styled";
 
+import { formateUtils } from "../../../utils/formateUtils";
+
 const MovementGraph = (props) => {
   const { data } = props;
+  const { formatNumber } = formateUtils();
   let totalMovement = 0;
 
-  const formatYAxis = (value) => {
-    if (value > 999999999 || value < -999999999) {
-      return `${value / 1000000000}B`;
-    }
-
-    if (value > 999999 || value < -999999) {
-      return `${value / 1000000}M`;
-    }
-
-    if (value > 999 || value < -999) {
-      return `${value / 1000}k`;
-    }
-
-    return value;
-  };
-
-  const dataGraph = data.map((movement, indice) => {
+  const dataGraph = data.map((movement) => {
     if (movement.tipo === "entrada") {
       totalMovement += movement.monto;
     } else {
@@ -54,7 +41,7 @@ const MovementGraph = (props) => {
           />
           <CartesianGrid stroke="#bdbdbd" strokeDasharray="10 10" />
           <XAxis dataKey="cantidad" />
-          <YAxis width={40} tickFormatter={formatYAxis} />
+          <YAxis width={40} tickFormatter={formatNumber} />
           <Tooltip />
         </LineChart>
       </ResponsiveContainer>
