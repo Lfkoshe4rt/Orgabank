@@ -14,7 +14,7 @@ const filterOptions = ({ method, ...rest }) => rest;
 const fetch = async (url, options = {}) => {
   try {
     const instance = axios.create({
-      baseURL: `http://localhost:3001`,
+      baseURL: `https://orgabank.onrender.com/`,
     });
 
     // INTERCEPTOR REQUEST
