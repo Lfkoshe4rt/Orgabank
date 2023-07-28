@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
+import { API_BASE_URL } from "./constants";
 
 let headers = {
   "Content-Type": "application/json",
@@ -14,7 +15,7 @@ const filterOptions = ({ method, ...rest }) => rest;
 const fetch = async (url, options = {}) => {
   try {
     const instance = axios.create({
-      baseURL: `https://orgabank.onrender.com/`,
+      baseURL: API_BASE_URL,
     });
 
     // INTERCEPTOR REQUEST

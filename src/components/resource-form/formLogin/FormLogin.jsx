@@ -24,6 +24,7 @@ const FormLogin = () => {
   const { addMovement } = useMovementActions();
 
   const [message, setMessage] = useState(null);
+  const [statusLogin, setStatusLogin] = useState("Login");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +33,8 @@ const FormLogin = () => {
 
     const username = formData.get("username");
     const password = formData.get("password");
+
+    setStatusLogin("Cargando...");
 
     const user = {
       username,
@@ -46,7 +49,7 @@ const FormLogin = () => {
       if (status === "OK") {
         const { cajas, movements } = data;
 
-        console.log(data);
+        setStatusLogin("Login");
 
         addUser(data);
 
@@ -61,6 +64,7 @@ const FormLogin = () => {
 
       if (status === "FAILED") {
         setMessage("Usuario o contraseña incorrectos");
+        setStatusLogin("Login");
         e.target.reset();
       }
     }
@@ -90,7 +94,7 @@ const FormLogin = () => {
           placeholder="Contraseña"
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">{statusLogin}</button>
 
         <FormLoginStyledError>{message}</FormLoginStyledError>
         <img src={Icono} alt="orgabank" />
