@@ -15,7 +15,7 @@ const filterOptions = ({ method, ...rest }) => rest;
 const fetch = async (url, options = {}) => {
   try {
     const instance = axios.create({
-      baseURL: API_DEV_URL,
+      baseURL: API_BASE_URL,
     });
 
     // INTERCEPTOR REQUEST
