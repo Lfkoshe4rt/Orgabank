@@ -1,13 +1,22 @@
 import { replaceCaja } from "../store/slices/caja/cajaSlice";
 import httpClient from "../utils/httpClient";
-import constants from "../utils/constants";
+
 import { toast } from "react-toastify";
 import { setCaja } from "../store/slices/caja/cajaSlice";
 
-const Auth = constants.Authorization();
+const generateHeader = (state) => {
+  const {
+    user: { token },
+  } = state;
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+};
 
 export const createCaja = (store) => (next) => async (action) => {
   const previousState = store.getState();
+  const Auth = generateHeader(previousState);
 
   next(action);
 
@@ -30,6 +39,7 @@ export const createCaja = (store) => (next) => async (action) => {
 
 export const modificarCaja = (store) => (next) => async (action) => {
   const previousState = store.getState();
+  const Auth = generateHeader(previousState);
 
   next(action);
 
@@ -50,6 +60,7 @@ export const modificarCaja = (store) => (next) => async (action) => {
 
 export const eliminarCaja = (store) => (next) => async (action) => {
   const previousState = store.getState();
+  const Auth = generateHeader(previousState);
 
   next(action);
 
