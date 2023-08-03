@@ -1,10 +1,10 @@
 import { replaceCaja } from "../store/slices/caja/cajaSlice";
 import httpClient from "../utils/httpClient";
-import { Authorization } from "../utils/constants";
+import constants from "../utils/constants";
 import { toast } from "react-toastify";
 import { setCaja } from "../store/slices/caja/cajaSlice";
 
-const Auth = Authorization();
+const Auth = constants.Authorization();
 
 export const createCaja = (store) => (next) => async (action) => {
   const previousState = store.getState();
