@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
-import { API_BASE_URL } from "./constants";
+import { API_BASE_URL, API_DEV_URL } from "./constants";
 
 let headers = {
   "Content-Type": "application/json",
@@ -15,7 +15,7 @@ const filterOptions = ({ method, ...rest }) => rest;
 const fetch = async (url, options = {}) => {
   try {
     const instance = axios.create({
-      baseURL: API_BASE_URL,
+      baseURL: API_DEV_URL,
     });
 
     // INTERCEPTOR REQUEST

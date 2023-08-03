@@ -2,12 +2,9 @@ import styled from "styled-components";
 
 export const Header = styled.div`
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: flex-end;
 
-  @media (max-width: 1220px) {
-    justify-content: center;
-  }
+  flex-wrap: wrap;
 `;
 
 export const Lista = styled.ul`
@@ -15,7 +12,7 @@ export const Lista = styled.ul`
   list-style: none;
   padding: 0;
 
-  @media (max-width: 730px) {
+  @media (max-width: 731px) {
     flex-direction: column;
     width: 100%;
   }

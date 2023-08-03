@@ -36,9 +36,11 @@ export const movementSlice = createSlice({
           item.user === action.payload.user
       );
 
-      if (index >= 0) {
+      if (index !== -1) {
         state.movements[index] = action.payload;
       }
+
+      persistLocalStorage(KEY, state);
     },
 
     resetMovement: () => {
@@ -63,12 +65,11 @@ export const movementSlice = createSlice({
         (movement) => movement._id === action.payload
       );
 
-      if (index >= 0) {
+      if (index !== -1) {
         state.movements.splice(index, 1);
       }
 
       persistLocalStorage(KEY, state);
-      return state;
     },
 
     updateMovementUser: (state, action) => {

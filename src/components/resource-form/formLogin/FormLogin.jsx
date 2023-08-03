@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Icono from "../../../assets/images/icon.svg";
-
+import { useCajaActions } from "../../../hooks/useCajaActions";
+import { useMovementActions } from "../../../hooks/useMovementActions";
+import { useUserActions } from "../../../hooks/useUserActions";
 import { PrivateRoutes } from "../../../Routes/routes";
 
-import { useCajaActions } from "../../../hooks/useCajaActions";
-import { useUserActions } from "../../../hooks/useUserActions";
-import { useMovementActions } from "../../../hooks/useMovementActions";
-
-import httpClient from "../../../utils/httpClient";
+import auth from "../../../services/auth";
 
 import {
   FormLoginStyled,
@@ -19,12 +16,13 @@ import {
 
 const FormLogin = () => {
   const navigate = useNavigate();
-  const { addUser } = useUserActions();
-  const { addCaja } = useCajaActions();
-  const { addMovement } = useMovementActions();
 
   const [message, setMessage] = useState(null);
   const [statusLogin, setStatusLogin] = useState("Login");
+
+  const { addUser } = useUserActions();
+  const { addCaja } = useCajaActions();
+  const { addMovement } = useMovementActions();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -34,39 +32,21 @@ const FormLogin = () => {
     const username = formData.get("username");
     const password = formData.get("password");
 
-    setStatusLogin("Cargando...");
+    setStatusLogin("Ingresando...");
+    const response = await auth.login({ username, password });
 
-    const user = {
-      username,
-      password,
-    };
+    if (response.status === "OK") {
+      const { cajas, movements } = response.data;
 
-    try {
-      const response = await httpClient.post("/auth", { data: user });
+      addUser(response.data);
+      addCaja({ cajas });
+      addMovement({ movements });
 
-      const { status, data } = response;
+      navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
+    } else {
+      setMessage("Usuario o contraseña incorrecta");
 
-      if (status === "OK") {
-        const { cajas, movements } = data;
-
-        setStatusLogin("Login");
-
-        addUser(data);
-
-        addCaja({ cajas });
-
-        addMovement({ movements });
-
-        navigate(`/${PrivateRoutes.CAJAS}`, { replace: true });
-      }
-    } catch (error) {
-      const { status } = error.response.data;
-
-      if (status === "FAILED") {
-        setMessage("Usuario o contraseña incorrectos");
-        setStatusLogin("Login");
-        e.target.reset();
-      }
+      setStatusLogin("Login");
     }
   };
 
@@ -76,19 +56,12 @@ const FormLogin = () => {
 
   return (
     <FormLoginStyled>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} onClick={removeMessage}>
         <FormLoginStyledTitle>
           <span>ORGA BANK</span>
         </FormLoginStyledTitle>
+        <input type="text" name="username" placeholder="Usuario" required />
         <input
-          type="text"
-          onClick={removeMessage}
-          name="username"
-          placeholder="Usuario"
-          required
-        />
-        <input
-          onClick={removeMessage}
           type="password"
           name="password"
           placeholder="Contraseña"
@@ -102,4 +75,5 @@ const FormLogin = () => {
     </FormLoginStyled>
   );
 };
+
 export default FormLogin;

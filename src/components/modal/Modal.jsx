@@ -9,12 +9,12 @@ import {
   Title,
 } from "./styled";
 
-const Modal = ({ open, togle, title, children }) => {
+const Modal = ({ open, toggle, title, children }) => {
   const modalRef = useRef();
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      togle();
+      toggle();
     }
   };
 
@@ -27,7 +27,7 @@ const Modal = ({ open, togle, title, children }) => {
               <ModalWrapper>
                 <HeaderModal>
                   <Title>{title}</Title>
-                  <IconClose onClick={togle} />
+                  <IconClose onClick={toggle} />
                 </HeaderModal>
                 <BodyModal>{children}</BodyModal>
               </ModalWrapper>

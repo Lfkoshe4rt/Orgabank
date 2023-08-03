@@ -44,12 +44,13 @@ const MovementTable = (props) => {
         <TableStyle>
           <thead>
             <tr>
+              <th>id</th>
               <th>Tipo</th>
               <th>Rubro</th>
               <th>Sub rubro</th>
               <th>Detalle</th>
               <th>Monto</th>
-              <th>Mneda</th>
+              <th>Moneda</th>
               <th>Banco</th>
               <th>Fecha</th>
               <th>Hora</th>
@@ -58,7 +59,7 @@ const MovementTable = (props) => {
                   textAlign: "center",
                 }}
               >
-                Accion
+                Acción
               </th>
             </tr>
           </thead>
@@ -68,6 +69,7 @@ const MovementTable = (props) => {
               .slice(0, rowsToshow)
               .map((movement) => (
                 <tr key={"tr-" + movement._id}>
+                  <td>{movement._id}</td>
                   <td
                     style={{
                       color: movement.tipo === "entrada" ? "green" : "red",

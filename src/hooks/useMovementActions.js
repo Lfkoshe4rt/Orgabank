@@ -5,6 +5,7 @@ import {
   updateMovementUser,
   addNewMovement,
   removeMovement,
+  replaceMovement,
 } from "../store/slices/movement/movementSlice";
 
 import { useAppDispatch } from "./store";
@@ -14,6 +15,10 @@ export const useMovementActions = () => {
 
   const addMovement = (movement) => {
     dispatch(setMovement(movement));
+  };
+
+  const replaceOneMovement = (movement) => {
+    dispatch(replaceMovement(movement));
   };
 
   const addOneMovement = (movement) => {
@@ -43,5 +48,6 @@ export const useMovementActions = () => {
     modifyMovement,
     refreshMovement,
     addOneMovement,
+    replaceOneMovement,
   };
 };

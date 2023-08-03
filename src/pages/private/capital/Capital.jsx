@@ -65,7 +65,7 @@ export default function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
   const { _id } = useAppSelector((state) => state.user);
   const { movements } = useAppSelector((state) => state.movement);
-  const togleModal = () => setOpenModal(!openModal);
+  const toggleModal = () => setOpenModal(!openModal);
 
   const total = movements.reduce((acc, movement) => {
     if (movement.tipo === "entrada") {
@@ -78,7 +78,7 @@ export default function Dashboard() {
   return (
     <>
       <ButtonAddContainer>
-        <ButtonAddMovement onClick={togleModal}>
+        <ButtonAddMovement onClick={toggleModal}>
           Nuevo movimiento
         </ButtonAddMovement>
       </ButtonAddContainer>
@@ -94,8 +94,8 @@ export default function Dashboard() {
       <MovementTable data={movements} />
       <ScrollToUp />
 
-      <Modal title="Nuevo movimiento" open={openModal} togle={togleModal}>
-        <FormNewMovement onClose={togleModal} />
+      <Modal title="Nuevo movimiento" open={openModal} toggle={toggleModal}>
+        <FormNewMovement onClose={toggleModal} />
       </Modal>
 
       <ToastContainer draggablePercent={60} autoClose={4000} />
