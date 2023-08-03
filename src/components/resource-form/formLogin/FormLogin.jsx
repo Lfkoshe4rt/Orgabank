@@ -58,7 +58,7 @@ const FormLogin = () => {
     <FormLoginStyled>
       <form onSubmit={onSubmit} onClick={removeMessage}>
         <FormLoginStyledTitle>
-          <span>ORGA BANK</span>
+          <span>ORGA-BANK</span>
         </FormLoginStyledTitle>
         <input type="text" name="username" placeholder="Usuario" required />
         <input
