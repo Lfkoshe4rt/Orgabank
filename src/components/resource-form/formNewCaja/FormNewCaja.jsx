@@ -26,17 +26,17 @@ const FormNewCaja = ({ onClose }) => {
 
     const check = () => {
       if (caja.alias === "") {
-        toast.warn("El nombre no puede estar vacio");
+        toast.warn("El nombre no puede estar vació");
         return false;
       }
 
       if (caja.moneda === "") {
-        toast.warn("El nombre no puede estar vacio");
+        toast.warn("El nombre no puede estar vació");
         return false;
       }
 
       if (caja.banco === "") {
-        toast.warn("El nombre no puede estar vacio");
+        toast.warn("El nombre no puede estar vació");
         return false;
       }
 
@@ -101,11 +101,10 @@ const FormNewCaja = ({ onClose }) => {
 
       <InputGroup label="Banco">
         <Select name="banco">
-          <Option value="ITAU">ITAU</Option>
+          <Option value="EFECTIVO">EFECTIVO</Option>
           <Option value="BROU">BROU</Option>
+          <Option value="ITAU">ITAU</Option>
           <Option value="BBVA">BBVA</Option>
-          <Option value="SCOTIABANK">SCOTIABANK</Option>
-          <Option value="SANTANDER">SANTANDER</Option>
         </Select>
       </InputGroup>
 

@@ -67,11 +67,10 @@ const FormUpdateCaja = (props) => {
 
       <InputGroup label="Banco">
         <Select name="banco" value={box.banco}>
-          <Option value="ITAU">ITAU</Option>
+          <Option value="EFECTIVO">EFECTIVO</Option>
           <Option value="BROU">BROU</Option>
+          <Option value="ITAU">ITAU</Option>
           <Option value="BBVA">BBVA</Option>
-          <Option value="SCOTIABANK">SCOTIABANK</Option>
-          <Option value="SANTANDER">SANTANDER</Option>
         </Select>
       </InputGroup>
 
