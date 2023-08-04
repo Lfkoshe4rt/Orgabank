@@ -1,15 +1,23 @@
-import { toast } from "react-toastify";
 import { useAppSelector } from "../../../hooks/store";
+import { useMovementActions } from "../../../hooks/useMovementActions";
 import { Input } from "../../Input";
 import { Button } from "../../button";
 import { InputGroup } from "../../inputGroup";
 import { Option } from "../../option";
 import { Select } from "../../select";
-import { useMovementActions } from "../../../hooks/useMovementActions";
+import { useState } from "react";
 
 const FormNewMovement = ({ onClose }) => {
   const { _id } = useAppSelector((state) => state.user);
   const { addOneMovement } = useMovementActions();
+  const { cajas } = useAppSelector((state) => state.caja);
+
+  const prototypeCaja = {
+    moneda: "",
+    banco: "",
+  };
+
+  const [cajaSelected, setCajaSelected] = useState(cajas[0] || prototypeCaja);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +54,11 @@ const FormNewMovement = ({ onClose }) => {
     });
   };
 
+  function handleChange(e) {
+    const selected = cajas.find((caja) => caja._id === e.target.value);
+    setCajaSelected(selected);
+  }
+
   return (
     <form onSubmit={onSubmit}>
       <InputGroup label="Tipo">
@@ -71,24 +84,33 @@ const FormNewMovement = ({ onClose }) => {
         <Input type="number" name="monto" required />
       </InputGroup>
 
-      <InputGroup label="Moneda">
-        <Select name="moneda">
-          <Option value="UYU">UYU</Option>
-          <Option value="USD">USD</Option>
-          <Option value="R$">R$</Option>
+      <InputGroup label="Caja">
+        <Select name="caja" onChange={handleChange}>
+          {cajas.map((caja) => (
+            <Option key={caja._id} value={caja._id}>
+              {caja.alias}
+            </Option>
+          ))}
         </Select>
+      </InputGroup>
+
+      <InputGroup label="Moneda">
+        <Input
+          type="text"
+          name="moneda"
+          value={cajaSelected.moneda}
+          readOnly={true}
+        ></Input>
       </InputGroup>
 
       <InputGroup label="Banco">
-        <Select name="banco">
-          <Option value="ITAU">ITAU</Option>
-          <Option value="BROU">BROU</Option>
-          <Option value="BBVA">BBVA</Option>
-          <Option value="SCOTIABANK">SCOTIABANK</Option>
-          <Option value="SANTANDER">SANTANDER</Option>
-        </Select>
+        <Input
+          type="text"
+          name="banco"
+          value={cajaSelected.banco}
+          readOnly={true}
+        ></Input>
       </InputGroup>
-
       <div className="d-flex justify-end">
         <Button
           type="submit"

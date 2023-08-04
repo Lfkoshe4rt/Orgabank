@@ -1,9 +1,9 @@
 import { Select as SelectStyled } from "./styled";
 
 const Select = (props) => {
-  const { children, name, value } = props;
+  const { children, name, value, onChange } = props;
   return (
-    <SelectStyled name={name} defaultValue={value}>
+    <SelectStyled onChange={onChange} name={name} defaultValue={value}>
       {children}
     </SelectStyled>
   );

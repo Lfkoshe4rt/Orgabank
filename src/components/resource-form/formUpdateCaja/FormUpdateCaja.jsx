@@ -50,11 +50,11 @@ const FormUpdateCaja = (props) => {
   return (
     <form onSubmit={onSubmit}>
       <InputGroup label="Nombre">
-        <Input type="text" name="nombre" required value={box.alias} />
+        <Input type="text" name="nombre" required defaultValue={box.alias} />
       </InputGroup>
 
       <InputGroup label="Monto">
-        <Input type="number" name="saldo" required value={box.saldo} />
+        <Input type="number" name="saldo" required defaultValue={box.saldo} />
       </InputGroup>
 
       <InputGroup label="Moneda">

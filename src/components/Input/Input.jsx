@@ -1,15 +1,18 @@
 import { Input as InputStyled } from "./styled/styled";
 
 const Input = (props) => {
-  const { type, name, placeholder, value, required } = props;
+  const { type, name, placeholder, value, defaultValue, required, readOnly } =
+    props;
 
   return (
     <InputStyled
       type={type}
       name={name}
       placeholder={placeholder}
-      defaultValue={value}
+      value={value}
+      defaultValue={defaultValue}
       required={required}
+      readOnly={readOnly ? true : false}
     />
   );
 };
