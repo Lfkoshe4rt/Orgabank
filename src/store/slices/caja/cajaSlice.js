@@ -47,7 +47,6 @@ export const cajaSlice = createSlice({
     },
 
     updateMovementCaja: (state, action) => {
-      console.log("aaa");
       const index = state.cajas.findIndex(
         (item) => item._id === action.payload._id
       );

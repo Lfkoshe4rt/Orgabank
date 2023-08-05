@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { TableStyle, ButtonSearchMore } from "./styled";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useMovementActions } from "../../../hooks/useMovementActions";
+import { useCajaActions } from "../../../hooks/useCajaActions";
+import { useAppSelector } from "../../../hooks/store";
 
 import { formatDate } from "../../../utils/formatDate";
 
 const MovementTable = (props) => {
   const { data } = props;
+  const { cajas } = useAppSelector((state) => state.caja);
   const [rowsToshow, setRowsToShow] = useState(10);
   const [showMore, setShowMore] = useState(false);
   const { removeOneMovement } = useMovementActions();
   const { shortDate, getHour } = formatDate();
+  const { updateMovementCaja } = useCajaActions();
 
   useEffect(() => {
     if (data.length > 10) {
@@ -27,10 +31,32 @@ const MovementTable = (props) => {
   };
 
   const handleDelete = (id) => {
-    let exec = confirm("Desea eliminar el movimiento?");
+    const movement = data.find((movement) => movement._id === id);
+    const cajaSelected = cajas.find((caja) => caja._id === movement.caja);
+    const cajaSeleccionada = { ...cajaSelected };
 
-    if (exec) {
-      removeOneMovement(id);
+    if (movement.tipo === "entrada") {
+      let exec = confirm(
+        "Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo entrada, por lo tanto se eliminará el monto de la cuenta seleccionada."
+      );
+
+      cajaSeleccionada.saldo = cajaSeleccionada.saldo - movement.monto;
+
+      if (exec) {
+        updateMovementCaja(cajaSeleccionada);
+        removeOneMovement(id);
+      }
+      return;
+    } else {
+      let exec = confirm(
+        "Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo salida, por lo tanto se agregará el monto a la cuenta seleccionada."
+      );
+      cajaSeleccionada.saldo = cajaSeleccionada.saldo + movement.monto;
+      if (exec) {
+        removeOneMovement(id);
+        updateMovementCaja(cajaSeleccionada);
+      }
+      return;
     }
   };
 

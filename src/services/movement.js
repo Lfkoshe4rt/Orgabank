@@ -39,7 +39,7 @@ export const removeOneMovement = (store) => (next) => async (action) => {
   next(action);
   if (action.type === "movement/removeMovement") {
     try {
-      const res = await httpClient.delete(`movement/${action - payload}`, {
+      const res = await httpClient.delete(`movement/${action.payload}`, {
         headers: Auth,
       });
       if (res.status === "OK") toast.success("Movimiento eliminado con suceso");
