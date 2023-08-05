@@ -6,11 +6,13 @@ import { InputGroup } from "../../inputGroup";
 import { Option } from "../../option";
 import { Select } from "../../select";
 import { useState } from "react";
+import { useCajaActions } from "../../../hooks/useCajaActions";
 
 const FormNewMovement = ({ onClose }) => {
   const { _id } = useAppSelector((state) => state.user);
   const { addOneMovement } = useMovementActions();
   const { cajas } = useAppSelector((state) => state.caja);
+  const { updateMovementCaja } = useCajaActions();
 
   const prototypeCaja = {
     moneda: "",
@@ -31,6 +33,7 @@ const FormNewMovement = ({ onClose }) => {
     const moneda = form.get("moneda");
     const banco = form.get("banco");
     const monto = form.get("monto");
+    const caja = form.get("caja");
 
     const movement = {
       tipo: tipo.toLowerCase(),
@@ -40,11 +43,22 @@ const FormNewMovement = ({ onClose }) => {
       monto: Number(monto),
       moneda,
       banco,
+      caja,
       user: _id,
       createdAt: new Date().toISOString(),
     };
 
     addOneMovement(movement);
+
+    let newCaja = { ...cajaSelected };
+
+    if (movement.tipo === "entrada") {
+      newCaja.saldo = Number(newCaja.saldo) + Number(movement.monto);
+    } else {
+      newCaja.saldo = Number(newCaja.saldo) - Number(movement.monto);
+    }
+
+    updateMovementCaja(newCaja);
 
     onClose();
 

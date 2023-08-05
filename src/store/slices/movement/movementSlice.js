@@ -72,7 +72,7 @@ export const movementSlice = createSlice({
       persistLocalStorage(KEY, state);
     },
 
-    updateMovementUser: (state, action) => {
+    updateMovementCaja: (state, action) => {
       console.log("updateMovementUser");
       return;
     },

@@ -44,7 +44,6 @@ const MovementTable = (props) => {
         <TableStyle>
           <thead>
             <tr>
-              <th>id</th>
               <th>Tipo</th>
               <th>Rubro</th>
               <th>Sub rubro</th>
@@ -69,7 +68,6 @@ const MovementTable = (props) => {
               .slice(0, rowsToshow)
               .map((movement) => (
                 <tr key={"tr-" + movement._id}>
-                  <td>{movement._id}</td>
                   <td
                     style={{
                       color: movement.tipo === "entrada" ? "green" : "red",

@@ -46,6 +46,20 @@ export const cajaSlice = createSlice({
       return state;
     },
 
+    updateMovementCaja: (state, action) => {
+      console.log("aaa");
+      const index = state.cajas.findIndex(
+        (item) => item._id === action.payload._id
+      );
+
+      if (index >= 0) {
+        state.cajas[index] = action.payload;
+      }
+
+      persistLocalStorage(KEY, state);
+      return state;
+    },
+
     addNewCaja: (state, action) => {
       persistLocalStorage(KEY, { cajas: [...state.cajas, action.payload] });
       return { cajas: [...state.cajas, action.payload] };
@@ -95,6 +109,7 @@ export const {
   updateCaja,
   replaceCaja,
   removeCaja,
+  updateMovementCaja,
 } = cajaSlice.actions;
 
 export default cajaSlice.reducer;

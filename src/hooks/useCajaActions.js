@@ -4,6 +4,7 @@ import {
   updateCaja as updateOneCaja,
   addNewCaja as addOneCaja,
   removeCaja as removeOneCaja,
+  updateMovementCaja as updateMovementOneCaja,
 } from "../store/slices/caja/cajaSlice";
 import { useAppDispatch } from "./store";
 
@@ -30,11 +31,16 @@ export const useCajaActions = () => {
     dispatch(removeOneCaja(caja));
   };
 
+  const updateMovementCaja = (caja) => {
+    dispatch(updateMovementOneCaja(caja));
+  };
+
   return {
     addCaja,
     refreshCaja,
     addNewCaja,
     updateCaja,
     removeCaja,
+    updateMovementCaja,
   };
 };

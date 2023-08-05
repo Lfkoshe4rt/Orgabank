@@ -52,6 +52,7 @@ export const modificarCaja = (store) => (next) => async (action) => {
 
       if (res.status === "OK") toast.success("Caja modificada con suceso");
     } catch (err) {
+      console.log(err);
       toast.error("Error al intentar modificar la caja");
       store.dispatch(setCaja(previousState.caja));
     }

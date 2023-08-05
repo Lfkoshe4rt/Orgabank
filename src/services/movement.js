@@ -1,13 +1,27 @@
 import { toast } from "react-toastify";
 import { replaceMovement } from "../store/slices/movement/movementSlice";
 import httpClient from "../utils/httpClient";
+const generateHeader = (state) => {
+  const {
+    user: { token },
+  } = state;
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+};
 
 export const createMovement = (store) => (next) => async (action) => {
-  const { type, payload } = action;
+  const previousState = store.getState();
+  const Auth = generateHeader(previousState);
+
   next(action);
-  if (type === "movement/addNewMovement") {
+  if (action.type === "movement/addNewMovement") {
     try {
-      const res = await httpClient.post("/movement", { data: payload });
+      const res = await httpClient.post("/movement", {
+        data: action.payload,
+        headers: Auth,
+      });
 
       store.dispatch(replaceMovement(res.data));
 
@@ -20,15 +34,17 @@ export const createMovement = (store) => (next) => async (action) => {
 };
 
 export const removeOneMovement = (store) => (next) => async (action) => {
-  const { type, payload } = action;
+  const previousState = store.getState();
+  const Auth = generateHeader(previousState);
   next(action);
-  if (type === "movement/removeMovement") {
+  if (action.type === "movement/removeMovement") {
     try {
-      const res = await httpClient.delete(`movement/${payload}`);
+      const res = await httpClient.delete(`movement/${action - payload}`, {
+        headers: Auth,
+      });
       if (res.status === "OK") toast.success("Movimiento eliminado con suceso");
     } catch (err) {
-      const { data } = err.response;
-      toast.error(data.message);
+      toast.error(err.data.message);
     }
   }
 };
