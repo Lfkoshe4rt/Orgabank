@@ -4,7 +4,7 @@ import Icono from "../../../assets/images/icon.svg";
 import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useMovementActions } from "../../../hooks/useMovementActions";
 import { useUserActions } from "../../../hooks/useUserActions";
-import { PrivateRoutes } from "../../../Routes/routes";
+import { PrivateRoutes, PublicRoutes } from "../../../Routes/routes";
 
 import auth from "../../../services/auth";
 
@@ -12,6 +12,8 @@ import {
   FormLoginStyled,
   FormLoginStyledError,
   FormLoginStyledTitle,
+  ButtonRegister,
+  ButtonLogin,
 } from "./styled/styled";
 
 const FormLogin = () => {
@@ -54,6 +56,10 @@ const FormLogin = () => {
     setMessage(null);
   };
 
+  const redirectRegister = () => {
+    navigate(`/${PublicRoutes.REGISTER}`, { replace: true });
+  };
+
   return (
     <FormLoginStyled>
       <form onSubmit={onSubmit} onClick={removeMessage}>
@@ -67,10 +73,13 @@ const FormLogin = () => {
           placeholder="Contraseña"
           required
         />
-        <button type="submit">{statusLogin}</button>
+        <ButtonLogin type="submit">{statusLogin}</ButtonLogin>
 
         <FormLoginStyledError>{message}</FormLoginStyledError>
         <img src={Icono} alt="orgabank" />
+        <ButtonRegister onClick={() => redirectRegister()}>
+          Registrarse
+        </ButtonRegister>
       </form>
     </FormLoginStyled>
   );

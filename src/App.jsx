@@ -6,8 +6,9 @@ import AuthGuard from "./guard/auth.guard";
 import { PrivateRoutes, PublicRoutes } from "./Routes/routes";
 import { AuthToken } from "./components/authToken";
 
-const Login = lazy(() => import("./pages/Login"));
+const Login = lazy(() => import("./pages/public/login/Login"));
 const Private = lazy(() => import("./pages/private/Private"));
+const Register = lazy(() => import("./pages/public/register/Register"));
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <RoutesWithNotFound>
               <Route path="/" element={<Navigate to={PrivateRoutes.CAJAS} />} />
               <Route path={PublicRoutes.LOGIN} element={<Login />} />
+              <Route path={PublicRoutes.REGISTER} element={<Register />} />
               <Route element={<AuthGuard />}>
                 <Route path={`/*`} element={<Private />} />
               </Route>

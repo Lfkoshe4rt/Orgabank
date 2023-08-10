@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormLoginStyled = styled.div`
+export const FormRegisterStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +65,7 @@ export const FormLoginStyled = styled.div`
   }
 `;
 
-export const ButtonLogin = styled.button`
+export const ButtonRegister = styled.button`
   width: 80%;
   height: 35px;
   margin: 10px;
@@ -90,7 +90,7 @@ export const ButtonLogin = styled.button`
   }
 `;
 
-export const ButtonRegister = styled.button`
+export const ButtonVolver = styled.button`
   padding: 0;
   margin: 0;
   border: none;
@@ -106,12 +106,12 @@ export const ButtonRegister = styled.button`
   }
 `;
 
-export const FormLoginStyledError = styled.p`
+export const FormRegisterStyledError = styled.p`
   color: red;
   font-size: 15px;
 `;
 
-export const FormLoginStyledTitle = styled.h1`
+export const FormRegisterStyledTitle = styled.h1`
   color: #000;
   font-size: 40px;
   font-weight: 600;
@@ -161,4 +161,11 @@ export const FormLoginStyledTitle = styled.h1`
   @media (max-width: 240px) {
     font-size: 6px;
   }
+`;
+
+export const FormMessageSuccess = styled.p`
+  color: #4caf50;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px;
 `;

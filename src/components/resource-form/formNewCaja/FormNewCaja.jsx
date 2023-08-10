@@ -88,7 +88,7 @@ const FormNewCaja = ({ onClose }) => {
       </InputGroup>
 
       <InputGroup label="Monto">
-        <Input type="number" name="saldo" required />
+        <Input type="number" name="saldo" defaultValue="0" required />
       </InputGroup>
 
       <InputGroup label="Moneda">
