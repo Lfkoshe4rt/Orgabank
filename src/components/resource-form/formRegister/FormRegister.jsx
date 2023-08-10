@@ -67,7 +67,6 @@ const FormRegister = () => {
       setStatusRegister("Registrarse");
       e.target.reset();
     } catch (error) {
-      setMessage("Error al registrar el usuario");
       setStatusRegister("Registrarse");
       errors.username = "El nombre de usuario no se encuentra disponible ";
       setErrors(errors);
