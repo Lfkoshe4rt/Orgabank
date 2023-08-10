@@ -83,37 +83,46 @@ const FormRegister = () => {
         }}
       >
         <FormRegisterStyledTitle>
-          <span>Registro</span>
+          <span>REGISTRO</span>
         </FormRegisterStyledTitle>
         <FormMessageSuccess>{message}</FormMessageSuccess>
-        <input type="text" name="username" required placeholder="Usuario" />
-        {errors.username && (
-          <FormRegisterStyledError>{errors.username}</FormRegisterStyledError>
-        )}
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          required
-        />
-        {errors.password && (
-          <FormRegisterStyledError>{errors.password} </FormRegisterStyledError>
-        )}
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirmar contraseña"
-          required
-        />
-        {errors.confirmPassword && (
-          <FormRegisterStyledError>
-            {errors.confirmPassword}
-          </FormRegisterStyledError>
-        )}
-        <input type="text" name="email" placeholder="Email" required />
+
+        <div>
+          <input type="text" name="username" required placeholder="Usuario" />
+          {errors.username && (
+            <FormRegisterStyledError>{errors.username}</FormRegisterStyledError>
+          )}
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            required
+          />
+          {errors.password && (
+            <FormRegisterStyledError>
+              {errors.password}{" "}
+            </FormRegisterStyledError>
+          )}
+        </div>
+        <div>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirmar contraseña"
+            required
+          />
+          {errors.confirmPassword && (
+            <FormRegisterStyledError>
+              {errors.confirmPassword}
+            </FormRegisterStyledError>
+          )}
+        </div>
+        {/* <input type="text" name="email" placeholder="Email" required />
         {errors.email && (
           <FormRegisterStyledError>{errors.email}</FormRegisterStyledError>
-        )}
+        )} */}
         <ButtonRegister>{statusRegister}</ButtonRegister>
 
         <ButtonVolver onClick={() => handleLoginRedirect()}>

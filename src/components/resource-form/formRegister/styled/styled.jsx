@@ -167,5 +167,4 @@ export const FormMessageSuccess = styled.p`
   color: #4caf50;
   font-size: 16px;
   font-weight: 600;
-  margin: 10px;
 `;

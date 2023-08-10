@@ -101,10 +101,12 @@ const FormNewCaja = ({ onClose }) => {
 
       <InputGroup label="Banco">
         <Select name="banco">
-          <Option value="EFECTIVO">EFECTIVO</Option>
+          <Option value="BANRISUL">BANRISUL</Option>
           <Option value="BROU">BROU</Option>
+          <Option value="EFECTIVO">EFECTIVO</Option>
           <Option value="ITAU">ITAU</Option>
-          <Option value="BBVA">BBVA</Option>
+          <Option value="MIDINERO">MI DINERO</Option>
+          <Option value="PREX">PREX</Option>
         </Select>
       </InputGroup>
 
