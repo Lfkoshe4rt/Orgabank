@@ -104,6 +104,7 @@ const FormNewCaja = ({ onClose }) => {
           <Option value="BANRISUL">BANRISUL</Option>
           <Option value="BROU">BROU</Option>
           <Option value="EFECTIVO">EFECTIVO</Option>
+          <Option value="JUBILACION">JUBILACIÓN</Option>
           <Option value="ITAU">ITAU</Option>
           <Option value="MIDINERO">MI DINERO</Option>
           <Option value="PREX">PREX</Option>
