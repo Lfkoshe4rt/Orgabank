@@ -2,6 +2,7 @@ import httpClient from "../../../utils/httpClient";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PublicRoutes } from "../../../Routes/routes";
+import Icono from "../../../assets/images/icon.svg";
 import {
   FormRegisterStyled,
   ButtonRegister,
@@ -9,6 +10,8 @@ import {
   FormRegisterStyledTitle,
   FormRegisterStyledError,
   FormMessageSuccess,
+  InputGroup,
+  Logo,
 } from "./styled/styled";
 
 const FormRegister = () => {
@@ -75,60 +78,65 @@ const FormRegister = () => {
 
   return (
     <FormRegisterStyled>
-      <form
-        onSubmit={onSubmit}
-        onClick={() => {
-          setMessage("");
-          setErrors(initialState);
-        }}
-      >
-        <FormRegisterStyledTitle>
-          <span>REGISTRO</span>
-        </FormRegisterStyledTitle>
-        <FormMessageSuccess>{message}</FormMessageSuccess>
+      <div>
+        <form
+          onSubmit={onSubmit}
+          onClick={() => {
+            setMessage("");
+            setErrors(initialState);
+          }}
+        >
+          <FormRegisterStyledTitle>
+            <span>REGISTRO</span>
+          </FormRegisterStyledTitle>
 
-        <div>
-          <input type="text" name="username" required placeholder="Usuario" />
-          {errors.username && (
-            <FormRegisterStyledError>{errors.username}</FormRegisterStyledError>
-          )}
-        </div>
-        <div>
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            required
-          />
-          {errors.password && (
-            <FormRegisterStyledError>
-              {errors.password}{" "}
-            </FormRegisterStyledError>
-          )}
-        </div>
-        <div>
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirmar contraseña"
-            required
-          />
-          {errors.confirmPassword && (
-            <FormRegisterStyledError>
-              {errors.confirmPassword}
-            </FormRegisterStyledError>
-          )}
-        </div>
-        {/* <input type="text" name="email" placeholder="Email" required />
-        {errors.email && (
-          <FormRegisterStyledError>{errors.email}</FormRegisterStyledError>
-        )} */}
-        <ButtonRegister>{statusRegister}</ButtonRegister>
+          <InputGroup>
+            <input type="text" name="username" required placeholder="Usuario" />
+            {errors.username && (
+              <FormRegisterStyledError>
+                {errors.username}
+              </FormRegisterStyledError>
+            )}
+          </InputGroup>
+
+          <InputGroup>
+            <input
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              required
+            />
+            {errors.password && (
+              <FormRegisterStyledError>
+                {errors.password}
+              </FormRegisterStyledError>
+            )}
+          </InputGroup>
+
+          <InputGroup>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirmar contraseña"
+              required
+            />
+            {errors.confirmPassword && (
+              <FormRegisterStyledError>
+                {errors.confirmPassword}
+              </FormRegisterStyledError>
+            )}
+          </InputGroup>
+
+          <ButtonRegister>{statusRegister}</ButtonRegister>
+          <FormMessageSuccess>{message}</FormMessageSuccess>
+        </form>
+
+        <Logo src={Icono} alt="orgabank" />
 
         <ButtonVolver onClick={() => handleLoginRedirect()}>
           Volver
         </ButtonVolver>
-      </form>
+      </div>
     </FormRegisterStyled>
   );
 };

@@ -5,62 +5,64 @@ export const FormRegisterStyled = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: calc(100vh);
   width: 100%;
   background-color: #f5f5f5;
 
-  form {
+  div {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 500px;
-    height: 400px;
     background-color: #fff;
     border-radius: 10px;
+    width: 500px;
+    flex-direction: column;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+`;
+
+export const Logo = styled.img`
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  input {
+    width: 80%;
+    height: 35px;
+    margin: 10px;
+    font-size: 16px;
+    text-align: center;
+
+    border: 1px solid #ccc;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #4caf50;
+      color: black;
+    }
 
     @media (max-width: 768px) {
-      width: 70%;
+      font-size: 16px;
+      height: 30px;
     }
 
     @media (max-width: 520px) {
-      width: 80%;
-    }
-
-    @media (max-width: 375px) {
-      width: 90%;
-    }
-
-    img {
-      margin-top: 20px;
-      width: 50px;
-      height: 50px;
-    }
-
-    input {
-      width: 80%;
-      height: 35px;
-      margin: 10px;
-      font-size: 16px;
-      text-align: center;
-
-      border: 1px solid #ccc;
-
-      &:focus {
-        outline: none;
-        border: 1px solid #4caf50;
-        color: black;
-      }
-
-      @media (max-width: 768px) {
-        font-size: 16px;
-        height: 30px;
-      }
-
-      @media (max-width: 520px) {
-        font-size: 14px;
-        height: 25px;
-      }
+      font-size: 14px;
+      height: 25px;
     }
   }
 `;
@@ -98,7 +100,7 @@ export const ButtonVolver = styled.button`
   color: #4caf50;
   font-size: 16px;
   font-weight: 600;
-  margin-top: 10px;
+  margin: 10px 0;
   text-decoration: underline;
 
   &:hover {
