@@ -8,21 +8,33 @@ export const FormRegisterStyled = styled.div`
   min-height: calc(100vh);
   width: 100%;
   background-color: #f5f5f5;
+`;
 
-  div {
-    display: flex;
-    background-color: #fff;
-    border-radius: 10px;
-    width: 500px;
-    flex-direction: column;
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 20px;
-    }
+export const Container = styled.div`
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 500px;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+
+  @media (max-width: 520px) {
+    width: 80%;
+  }
+
+  @media (max-width: 375px) {
+    width: 90%;
   }
 `;
 
@@ -38,32 +50,31 @@ export const InputGroup = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 80%;
+`;
+
+export const Input = styled.input`
+  height: 35px;
+  margin: 10px;
+  font-size: 16px;
+  text-align: center;
   width: 100%;
+  border: 1px solid #ccc;
 
-  input {
-    width: 80%;
-    height: 35px;
-    margin: 10px;
+  &:focus {
+    outline: none;
+    border: 1px solid #4caf50;
+    color: black;
+  }
+
+  @media (max-width: 768px) {
     font-size: 16px;
-    text-align: center;
+    height: 30px;
+  }
 
-    border: 1px solid #ccc;
-
-    &:focus {
-      outline: none;
-      border: 1px solid #4caf50;
-      color: black;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 16px;
-      height: 30px;
-    }
-
-    @media (max-width: 520px) {
-      font-size: 14px;
-      height: 25px;
-    }
+  @media (max-width: 520px) {
+    font-size: 14px;
+    height: 25px;
   }
 `;
 
@@ -108,11 +119,6 @@ export const ButtonVolver = styled.button`
   }
 `;
 
-export const FormRegisterStyledError = styled.p`
-  color: red;
-  font-size: 15px;
-`;
-
 export const FormRegisterStyledTitle = styled.h1`
   color: #000;
   font-size: 40px;
@@ -155,14 +161,11 @@ export const FormRegisterStyledTitle = styled.h1`
   @media (max-width: 320px) {
     font-size: 10px;
   }
+`;
 
-  @media (max-width: 280px) {
-    font-size: 8px;
-  }
-
-  @media (max-width: 240px) {
-    font-size: 6px;
-  }
+export const FormRegisterStyledError = styled.p`
+  color: red;
+  font-size: 15px;
 `;
 
 export const FormMessageSuccess = styled.p`

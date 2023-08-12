@@ -12,6 +12,9 @@ import {
   FormMessageSuccess,
   InputGroup,
   Logo,
+  Form,
+  Container,
+  Input,
 } from "./styled/styled";
 
 const FormRegister = () => {
@@ -78,8 +81,8 @@ const FormRegister = () => {
 
   return (
     <FormRegisterStyled>
-      <div>
-        <form
+      <Container>
+        <Form
           onSubmit={onSubmit}
           onClick={() => {
             setMessage("");
@@ -91,7 +94,7 @@ const FormRegister = () => {
           </FormRegisterStyledTitle>
 
           <InputGroup>
-            <input type="text" name="username" required placeholder="Usuario" />
+            <Input type="text" name="username" required placeholder="Usuario" />
             {errors.username && (
               <FormRegisterStyledError>
                 {errors.username}
@@ -100,7 +103,7 @@ const FormRegister = () => {
           </InputGroup>
 
           <InputGroup>
-            <input
+            <Input
               type="password"
               name="password"
               placeholder="Contraseña"
@@ -114,7 +117,7 @@ const FormRegister = () => {
           </InputGroup>
 
           <InputGroup>
-            <input
+            <Input
               type="password"
               name="confirmPassword"
               placeholder="Confirmar contraseña"
@@ -129,14 +132,14 @@ const FormRegister = () => {
 
           <ButtonRegister>{statusRegister}</ButtonRegister>
           <FormMessageSuccess>{message}</FormMessageSuccess>
-        </form>
+        </Form>
 
         <Logo src={Icono} alt="orgabank" />
 
         <ButtonVolver onClick={() => handleLoginRedirect()}>
           Volver
         </ButtonVolver>
-      </div>
+      </Container>
     </FormRegisterStyled>
   );
 };
