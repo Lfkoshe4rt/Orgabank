@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormRegisterStyled = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,10 +15,9 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
 `;
 
-export const Container = styled.div`
+export const Content = styled.div`
   display: flex;
   background-color: #fff;
   border-radius: 10px;
@@ -40,7 +39,6 @@ export const Container = styled.div`
 
 export const Logo = styled.img`
   margin: 0 auto;
-  margin-top: 20px;
   width: 50px;
   height: 50px;
 `;
@@ -123,7 +121,8 @@ export const FormRegisterStyledTitle = styled.h1`
   color: #000;
   font-size: 40px;
   font-weight: 600;
-  margin: 10px;
+  margin: auto;
+  margin-top: 20px;
 
   span {
     color: #4caf50;

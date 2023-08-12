@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { PublicRoutes } from "../../../Routes/routes";
 import Icono from "../../../assets/images/icon.svg";
 import {
-  FormRegisterStyled,
+  Content,
   ButtonRegister,
   ButtonVolver,
   FormRegisterStyledTitle,
@@ -80,8 +80,11 @@ const FormRegister = () => {
   };
 
   return (
-    <FormRegisterStyled>
-      <Container>
+    <Container>
+      <Content>
+        <FormRegisterStyledTitle>
+          <span>REGISTRO</span>
+        </FormRegisterStyledTitle>
         <Form
           onSubmit={onSubmit}
           onClick={() => {
@@ -89,10 +92,6 @@ const FormRegister = () => {
             setErrors(initialState);
           }}
         >
-          <FormRegisterStyledTitle>
-            <span>REGISTRO</span>
-          </FormRegisterStyledTitle>
-
           <InputGroup>
             <Input type="text" name="username" required placeholder="Usuario" />
             {errors.username && (
@@ -139,8 +138,8 @@ const FormRegister = () => {
         <ButtonVolver onClick={() => handleLoginRedirect()}>
           Volver
         </ButtonVolver>
-      </Container>
-    </FormRegisterStyled>
+      </Content>
+    </Container>
   );
 };
 
