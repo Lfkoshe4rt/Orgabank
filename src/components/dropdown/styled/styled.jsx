@@ -29,7 +29,11 @@ export const Dropbtn = styled.button`
   }
 
   &:hover {
-    background-color: #3e8e41;
+    color: #67d86b;
+  }
+
+  &:focus {
+    color: #67d86b;
   }
 `;
 
