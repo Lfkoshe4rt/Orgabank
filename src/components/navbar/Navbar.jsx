@@ -17,7 +17,7 @@ import {
 import { useAppSelector } from "../../hooks/store";
 
 const Navbar = () => {
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(PrivateRoutes.HOME);
   const { username } = useAppSelector((state) => state.user);
 
