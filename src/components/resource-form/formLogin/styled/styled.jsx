@@ -1,68 +1,36 @@
 import styled from "styled-components";
 
-export const FormLoginStyled = styled.div`
+export const Content = styled.div`
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 500px;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+
+  @media (max-width: 520px) {
+    width: 80%;
+  }
+
+  @media (max-width: 375px) {
+    width: 90%;
+  }
+`;
+
+export const Logo = styled.img`
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+`;
+
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
-  background-color: #f5f5f5;
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 500px;
-    height: 400px;
-    background-color: #fff;
-    border-radius: 10px;
-
-    @media (max-width: 768px) {
-      width: 70%;
-    }
-
-    @media (max-width: 520px) {
-      width: 80%;
-    }
-
-    @media (max-width: 375px) {
-      width: 90%;
-    }
-
-    img {
-      margin-top: 20px;
-      width: 50px;
-      height: 50px;
-    }
-
-    input {
-      width: 80%;
-      height: 35px;
-      margin: 10px;
-      font-size: 16px;
-      text-align: center;
-
-      border: 1px solid #ccc;
-
-      &:focus {
-        outline: none;
-        border: 1px solid #4caf50;
-        color: black;
-      }
-
-      @media (max-width: 768px) {
-        font-size: 16px;
-        height: 30px;
-      }
-
-      @media (max-width: 520px) {
-        font-size: 14px;
-        height: 25px;
-      }
-    }
-  }
 `;
 
 export const ButtonLogin = styled.button`
@@ -111,11 +79,55 @@ export const FormLoginStyledError = styled.p`
   font-size: 15px;
 `;
 
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+`;
+
+export const Input = styled.input`
+  height: 35px;
+  margin: 10px;
+  font-size: 16px;
+  text-align: center;
+  width: 100%;
+  border: 1px solid #ccc;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #4caf50;
+    color: black;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    height: 30px;
+  }
+
+  @media (max-width: 520px) {
+    font-size: 14px;
+    height: 25px;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh);
+  width: 100%;
+  background-color: #f5f5f5;
+`;
+
 export const FormLoginStyledTitle = styled.h1`
   color: #000;
   font-size: 40px;
   font-weight: 600;
-  margin: 10px;
+  margin: auto;
+  margin-top: 20px;
 
   span {
     color: #4caf50;

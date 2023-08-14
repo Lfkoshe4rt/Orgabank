@@ -9,11 +9,16 @@ import { PrivateRoutes, PublicRoutes } from "../../../Routes/routes";
 import auth from "../../../services/auth";
 
 import {
-  FormLoginStyled,
+  ButtonLogin,
+  Content,
+  Form,
+  Logo,
+  Input,
+  InputGroup,
+  ButtonRegister,
   FormLoginStyledError,
   FormLoginStyledTitle,
-  ButtonRegister,
-  ButtonLogin,
+  Container,
 } from "./styled/styled";
 
 const FormLogin = () => {
@@ -61,27 +66,33 @@ const FormLogin = () => {
   };
 
   return (
-    <FormLoginStyled>
-      <form onSubmit={onSubmit} onClick={removeMessage}>
+    <Container>
+      <Content>
         <FormLoginStyledTitle>
           <span>ORGA BANK</span>
         </FormLoginStyledTitle>
-        <input type="text" name="username" placeholder="Usuario" required />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          required
-        />
-        <ButtonLogin type="submit">{statusLogin}</ButtonLogin>
+        <Form onSubmit={onSubmit} onClick={removeMessage}>
+          <InputGroup>
+            <Input type="text" name="username" placeholder="Usuario" required />
+          </InputGroup>
 
-        <FormLoginStyledError>{message}</FormLoginStyledError>
-        <img src={Icono} alt="orgabank" />
+          <InputGroup>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              required
+            />
+          </InputGroup>
+          <ButtonLogin type="submit">{statusLogin}</ButtonLogin>
+          <FormLoginStyledError>{message}</FormLoginStyledError>
+        </Form>
+        <Logo src={Icono} alt="orgabank" />
         <ButtonRegister onClick={() => redirectRegister()}>
           Registrarse
         </ButtonRegister>
-      </form>
-    </FormLoginStyled>
+      </Content>
+    </Container>
   );
 };
 
