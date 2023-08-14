@@ -16,7 +16,7 @@ export default defineConfig({
       },
       manifest: {
         name: "Orga Bank",
-        short_name: "Org-Bank",
+        short_name: "ORG BNK",
         description: "Orga Bank",
         theme_color: "#ffffff",
         icons: [
