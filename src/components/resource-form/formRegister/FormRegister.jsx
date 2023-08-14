@@ -2,7 +2,7 @@ import httpClient from "../../../utils/httpClient";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PublicRoutes } from "../../../Routes/routes";
-import Icono from "../../../assets/images/icon.svg";
+import Icono from "../../../assets/images/icons/icon-128x128.png";
 import {
   Content,
   ButtonRegister,

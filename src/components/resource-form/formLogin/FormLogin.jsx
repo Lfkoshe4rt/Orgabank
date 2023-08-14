@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Icono from "../../../assets/images/icon.svg";
+import Icono from "../../../assets/images/icons/icon-128x128.png";
 import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useMovementActions } from "../../../hooks/useMovementActions";
 import { useUserActions } from "../../../hooks/useUserActions";
