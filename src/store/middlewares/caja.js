@@ -1,8 +1,8 @@
-import { replaceCaja } from "../store/slices/caja/cajaSlice";
-import httpClient from "../utils/httpClient";
+import { replaceCaja } from "../slices/caja/cajaSlice";
+import httpClient from "../../utils/httpClient";
 
 import { toast } from "react-toastify";
-import { setCaja } from "../store/slices/caja/cajaSlice";
+import { setCaja } from "../slices/caja/cajaSlice";
 
 const generateHeader = (state) => {
   const {

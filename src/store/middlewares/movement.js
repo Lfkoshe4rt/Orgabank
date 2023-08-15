@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import { replaceMovement } from "../store/slices/movement/movementSlice";
-import httpClient from "../utils/httpClient";
+import { replaceMovement } from "../slices/movement/movementSlice";
+import httpClient from "../../utils/httpClient";
 const generateHeader = (state) => {
   const {
     user: { token },
