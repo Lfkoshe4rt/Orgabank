@@ -54,6 +54,12 @@ const Button = styled.button`
 const ContentNumbers = styled.div`
   display: flex;
   align-items: baseline;
+
+  @media (max-width: 500px) {
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
 `;
 
 const NotFound = () => {
