@@ -9,6 +9,16 @@ const login = async (user) => {
   }
 };
 
+const register = async (user) => {
+  try {
+    const res = await httpClient.post("/user", { data: user });
+    return res;
+  } catch (err) {
+    return err;
+  }
+};
+
 export default {
   login,
+  register,
 };

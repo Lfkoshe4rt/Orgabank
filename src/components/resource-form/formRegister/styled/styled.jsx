@@ -162,13 +162,8 @@ export const FormRegisterStyledTitle = styled.h1`
   }
 `;
 
-export const FormRegisterStyledError = styled.p`
-  color: red;
-  font-size: 15px;
-`;
-
-export const FormMessageSuccess = styled.p`
-  color: #4caf50;
+export const FormMessage = styled.p`
+  color: ${(props) => props.color};
   font-size: 16px;
   font-weight: 600;
 `;
