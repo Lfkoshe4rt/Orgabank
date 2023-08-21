@@ -18,6 +18,14 @@ export const Dropbtn = styled.button`
   cursor: pointer;
   margin-left: 1.4rem;
 
+  &:hover {
+    color: #e0ffdf;
+  }
+
+  &:active {
+    color: #e0ffdf;
+  }
+
   @media (max-width: ${device.mobile}) {
     min-width: 200px;
     color: #4caf50;
@@ -26,14 +34,6 @@ export const Dropbtn = styled.button`
     padding: 10px 0;
     margin-bottom: 5px;
     margin-left: 0;
-  }
-
-  &:hover {
-    color: #67d86b;
-  }
-
-  &:focus {
-    color: #67d86b;
   }
 `;
 
