@@ -14,7 +14,8 @@ const register = async (user) => {
     const res = await httpClient.post("/user", { data: user });
     return res;
   } catch (err) {
-    return err;
+    const { data } = err.response;
+    return data;
   }
 };
 

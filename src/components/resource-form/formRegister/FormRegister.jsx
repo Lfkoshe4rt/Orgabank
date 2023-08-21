@@ -52,23 +52,26 @@ const FormRegister = () => {
       password,
     };
 
-    try {
-      setStatusRegister("Aguarde...");
+    setStatusRegister("Aguarde...");
 
-      const res = await auth.register(user);
+    const res = await auth.register(user);
 
-      if (res.status === "OK") {
-        setMessage({
-          message: "Usuario registrado correctamente",
-          type: "success",
-        });
-        e.target.reset();
-      }
-
-      setStatusRegister("Registrarse");
-    } catch (error) {
-      setStatusRegister("Registrarse");
+    if (res.status === "OK") {
+      setMessage({
+        message: "Usuario registrado correctamente",
+        type: "success",
+      });
+      e.target.reset();
     }
+
+    if (res.status === "FAILED") {
+      setMessage({
+        message: res.message,
+        type: "error",
+      });
+    }
+
+    setStatusRegister("Registrarse");
   };
 
   return (
