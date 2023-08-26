@@ -303,6 +303,10 @@ body {
   justify-content: space-evenly;
 }
 
+.text-center {
+  text-align: center !important;
+}
+
 /** Scrollbar */
 
 ::-webkit-scrollbar {
