@@ -1,4 +1,22 @@
 import styled from "styled-components";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+export const Type = styled.tr`
+  color: ${(props) => (props.type === "entrada" ? "green" : "red")};
+`;
+
+export const IconTrash = styled(RiDeleteBin6Line)`
+  color: red;
+  cursor: pointer;
+
+  &:hover {
+    color: #b80000;
+  }
+`;
+
+export const TableContainer = styled.div`
+  overflow-x: auto;
+`;
 
 export const TableStyle = styled.table`
   border-collapse: collapse;

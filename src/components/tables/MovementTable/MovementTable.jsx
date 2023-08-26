@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { TableStyle, ButtonSearchMore } from "./styled";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { useMovementActions } from "../../../hooks/useMovementActions";
-import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useAppSelector } from "../../../hooks/store";
+import { useCajaActions } from "../../../hooks/useCajaActions";
+import { useMovementActions } from "../../../hooks/useMovementActions";
+import {
+  ButtonSearchMore,
+  IconTrash,
+  TableStyle,
+  Type,
+  TableContainer,
+} from "./styled";
 
 import { formatDate } from "../../../utils/formatDate";
 
@@ -32,41 +37,28 @@ const MovementTable = (props) => {
 
   const handleDelete = (id) => {
     const movement = data.find((movement) => movement._id === id);
-    const cajaSelected = cajas.find((caja) => caja._id === movement.caja);
-    const cajaSeleccionada = { ...cajaSelected };
+    const { tipo, monto, caja: caja_id } = movement;
+    const caja = cajas.find((caja) => caja._id === caja_id);
+    const cajaSeleccionada = { ...caja };
 
-    if (movement.tipo === "entrada") {
-      let exec = confirm(
-        "Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo entrada, por lo tanto se eliminará el monto de la cuenta seleccionada."
-      );
+    const confirmMessage = `Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo ${tipo}, por lo tanto se eliminará el monto de la cuenta seleccionada.`;
+    const shouldMessage = confirm(confirmMessage);
 
-      cajaSeleccionada.saldo = cajaSeleccionada.saldo - movement.monto;
+    if (tipo === "entrada") {
+      cajaSeleccionada.saldo -= monto;
+    } else if (tipo === "salida") {
+      cajaSeleccionada.saldo += monto;
+    }
 
-      if (exec) {
-        updateMovementCaja(cajaSeleccionada);
-        removeOneMovement(id);
-      }
-      return;
-    } else {
-      let exec = confirm(
-        "Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo salida, por lo tanto se agregará el monto a la cuenta seleccionada."
-      );
-      cajaSeleccionada.saldo = cajaSeleccionada.saldo + movement.monto;
-      if (exec) {
-        removeOneMovement(id);
-        updateMovementCaja(cajaSeleccionada);
-      }
-      return;
+    if (shouldMessage) {
+      removeOneMovement(id);
+      updateMovementCaja(cajaSeleccionada);
     }
   };
 
   return (
     <>
-      <div
-        style={{
-          overflowX: "auto",
-        }}
-      >
+      <TableContainer>
         <TableStyle>
           <thead>
             <tr>
@@ -79,13 +71,7 @@ const MovementTable = (props) => {
               <th>Banco</th>
               <th>Fecha</th>
               <th>Hora</th>
-              <th
-                style={{
-                  textAlign: "center",
-                }}
-              >
-                Acción
-              </th>
+              <th className="text-center">Acción</th>
             </tr>
           </thead>
           <tbody>
@@ -94,13 +80,7 @@ const MovementTable = (props) => {
               .slice(0, rowsToshow)
               .map((movement) => (
                 <tr key={"tr-" + movement._id}>
-                  <td
-                    style={{
-                      color: movement.tipo === "entrada" ? "green" : "red",
-                    }}
-                  >
-                    {movement.tipo}
-                  </td>
+                  <Type type={movement.tipo}>{movement.tipo}</Type>
                   <td>{movement.rubro}</td>
                   <td>{movement.subRubro}</td>
                   <td>{movement.detalle}</td>
@@ -109,18 +89,9 @@ const MovementTable = (props) => {
                   <td>{movement.banco}</td>
                   <td>{shortDate(movement.createdAt)}</td>
                   <td>{getHour(movement.createdAt)}</td>
-                  <td
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <td className="d-flex justify-center">
                     {movement?._id !== undefined ? (
-                      <RiDeleteBin6Line
-                        style={{ cursor: "pointer" }}
-                        color="red"
-                        onClick={() => handleDelete(movement._id)}
-                      ></RiDeleteBin6Line>
+                      <IconTrash onClick={() => handleDelete(movement._id)} />
                     ) : (
                       <span>Loading...</span>
                     )}
@@ -129,7 +100,7 @@ const MovementTable = (props) => {
               ))}
           </tbody>
         </TableStyle>
-      </div>
+      </TableContainer>
       <ButtonSearchMore showMore={showMore} onClick={handleShowMore}>
         Ver más
       </ButtonSearchMore>
