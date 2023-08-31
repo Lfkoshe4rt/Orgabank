@@ -20,15 +20,18 @@ const MovementTable = (props) => {
   const { removeOneMovement } = useMovementActions();
   const { shortDate, getHour } = formatDate();
   const { updateMovementCaja } = useCajaActions();
+  const orderData = [...data].sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
 
   useEffect(() => {
-    if (data.length > 10) {
+    if (orderData.length > 10) {
       setShowMore(true);
     }
-  }, [data]);
+  }, [orderData]);
 
   const handleShowMore = () => {
-    if (rowsToshow >= data.length) {
+    if (rowsToshow >= orderData.length) {
       setShowMore(false);
       return;
     }
@@ -36,7 +39,7 @@ const MovementTable = (props) => {
   };
 
   const handleDelete = (id) => {
-    const movement = data.find((movement) => movement._id === id);
+    const movement = orderData.find((movement) => movement._id === id);
     const { tipo, monto, caja: caja_id } = movement;
     const caja = cajas.find((caja) => caja._id === caja_id);
     const cajaSeleccionada = { ...caja };
@@ -75,29 +78,26 @@ const MovementTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            {[...data]
-              .reverse()
-              .slice(0, rowsToshow)
-              .map((movement) => (
-                <tr key={"tr-" + movement._id}>
-                  <Type type={movement.tipo}>{movement.tipo}</Type>
-                  <td>{movement.rubro}</td>
-                  <td>{movement.subRubro}</td>
-                  <td>{movement.detalle}</td>
-                  <td>{movement.monto}</td>
-                  <td>{movement.moneda}</td>
-                  <td>{movement.banco}</td>
-                  <td>{shortDate(movement.createdAt)}</td>
-                  <td>{getHour(movement.createdAt)}</td>
-                  <td className="d-flex justify-center">
-                    {movement?._id !== undefined ? (
-                      <IconTrash onClick={() => handleDelete(movement._id)} />
-                    ) : (
-                      <span>Loading...</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+            {orderData.slice(0, rowsToshow).map((movement) => (
+              <tr key={"tr-" + movement._id}>
+                <Type type={movement.tipo}>{movement.tipo}</Type>
+                <td>{movement.rubro}</td>
+                <td>{movement.subRubro}</td>
+                <td>{movement.detalle}</td>
+                <td>{movement.monto}</td>
+                <td>{movement.moneda}</td>
+                <td>{movement.banco}</td>
+                <td>{shortDate(movement.createdAt)}</td>
+                <td>{getHour(movement.createdAt)}</td>
+                <td className="d-flex justify-center">
+                  {movement?._id !== undefined ? (
+                    <IconTrash onClick={() => handleDelete(movement._id)} />
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </TableStyle>
       </TableContainer>
