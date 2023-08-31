@@ -53,9 +53,9 @@ const FormNewMovement = ({ onClose }) => {
     let newCaja = { ...cajaSelected };
 
     if (movement.tipo === "entrada") {
-      newCaja.saldo = Number(newCaja.saldo) + Number(movement.monto);
+      newCaja.saldo += Number(movement.monto);
     } else {
-      newCaja.saldo = Number(newCaja.saldo) - Number(movement.monto);
+      newCaja.saldo -= Number(movement.monto);
     }
 
     updateMovementCaja(newCaja);
