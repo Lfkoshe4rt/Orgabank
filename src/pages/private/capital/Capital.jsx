@@ -19,7 +19,11 @@ export default function Dashboard() {
   const { movements } = useAppSelector((state) => state.movement);
   const toggleModal = () => setOpenModal(!openModal);
 
-  const total = movements.reduce((acc, movement) => {
+  const movementsUyu = movements.filter(
+    (movement) => movement.moneda === "UYU"
+  );
+
+  const total = movementsUyu.reduce((acc, movement) => {
     if (movement.tipo === "entrada") {
       return acc + movement.monto;
     } else {
