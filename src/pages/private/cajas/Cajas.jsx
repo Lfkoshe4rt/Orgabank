@@ -5,8 +5,8 @@ import { ToastContainer } from "react-toastify";
 
 import { CardMetric } from "../../../components/cardMetric";
 import { Modal } from "../../../components/modal";
-import { ScrollToUp } from "../../../components/scrollToUp";
 import { FormNewCaja, FormUpdateCaja } from "../../../components/resource-form";
+import { ScrollToUp } from "../../../components/scrollToUp";
 
 import { useAppSelector } from "../../../hooks/store";
 
@@ -19,27 +19,22 @@ import { Message } from "./components/message";
 import { Header, InvisibleButton, Item, Lista, ListaCajas } from "./styled";
 
 export default function Cajas() {
+  const { cajas } = useAppSelector((state) => state.caja);
+  const { acc } = getAmountAllBoxes(cajas);
+
   const [openModalNew, setOpenModalNew] = useState(false);
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [boxSelected, setBoxSelected] = useState({});
   const [filter, setFilter] = useState("ALL");
-  const { cajas } = useAppSelector((state) => state.caja);
 
-  const { acc } = getAmountAllBoxes({ cajas });
   const reverseCajas = [...cajas].reverse();
 
   const toggleModalNew = () => setOpenModalNew(!openModalNew);
   const toggleModalUpdate = () => setOpenModalUpdate(!openModalUpdate);
 
-  const filteredList = reverseCajas.filter((caja) => {
-    if (filter === "ALL") return caja;
-
-    if (filter === "UYU") return caja.moneda === filter;
-
-    if (filter === "USD") return caja.moneda === filter;
-
-    if (filter === "R$") return caja.moneda === filter;
-  });
+  const filteredList = reverseCajas.filter(
+    (caja) => caja.moneda.includes(filter) || filter === "ALL"
+  );
 
   return (
     <>

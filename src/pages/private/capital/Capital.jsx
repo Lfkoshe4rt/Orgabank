@@ -14,22 +14,15 @@ import {
   MainContainer,
 } from "./styled";
 
+import { getAmountAllMovements } from "../../../utils/getMoney";
+
 export default function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
+
   const { movements } = useAppSelector((state) => state.movement);
+  const { acc } = getAmountAllMovements(movements);
+
   const toggleModal = () => setOpenModal(!openModal);
-
-  const movementsUyu = movements.filter(
-    (movement) => movement.moneda === "UYU"
-  );
-
-  const total = movementsUyu.reduce((acc, movement) => {
-    if (movement.tipo === "entrada") {
-      return acc + movement.monto;
-    } else {
-      return acc - movement.monto;
-    }
-  }, 0);
 
   return (
     <>
@@ -41,9 +34,25 @@ export default function Dashboard() {
       <MainContainer>
         <MovementGraph data={movements} />
         <CardContainer>
-          <CardMetric color="green" titulo="total" value={total} moneda="UYU" />
-          <CardMetric color="green" titulo="total" value={total} moneda="UYU" />
-          <CardMetric color="green" titulo="total" value={total} moneda="UYU" />
+          <CardMetric
+            color="purple"
+            titulo="total"
+            value={acc.totalUYU}
+            moneda="UYU"
+          />
+
+          <CardMetric
+            color="red"
+            titulo="total"
+            value={acc.totalUSD}
+            moneda="USD"
+          />
+          <CardMetric
+            color="violet"
+            titulo="total"
+            value={acc.totalR$}
+            moneda="R$"
+          />
         </CardContainer>
       </MainContainer>
 

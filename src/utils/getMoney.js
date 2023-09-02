@@ -1,29 +1,59 @@
-export const getAmountAllBoxes = ({ cajas }) => {
+export const getAmountAllBoxes = (items) => {
   let acc = {
     totalUYU: 0,
     totalUSD: 0,
     totalR$: 0,
-    totalEnUYU: 0,
-    totalEnUSD: 0,
   };
 
-  cajas.forEach((caja) => {
-    if (caja.moneda === "UYU") {
-      acc.totalUYU += caja.saldo;
+  items.forEach((item) => {
+    if (item.moneda === "UYU") {
+      acc.totalUYU += item.saldo;
     }
 
-    if (caja.moneda === "USD") {
-      acc.totalUSD += caja.saldo;
+    if (item.moneda === "USD") {
+      acc.totalUSD += item.saldo;
     }
 
-    if (caja.moneda === "R$") {
-      acc.totalR$ += caja.saldo;
+    if (item.moneda === "R$") {
+      acc.totalR$ += item.saldo;
     }
   });
 
-  acc.totalEnUYU = acc.totalUYU + acc.totalUSD * 38 + acc.totalR$ * 9;
+  return { acc };
+};
 
-  acc.totalEnUSD = acc.totalUYU / 38 + acc.totalUSD + acc.totalR$ * 0.2;
+export const getAmountAllMovements = (items) => {
+  let acc = {
+    totalUYU: 0,
+    totalUSD: 0,
+    totalR$: 0,
+  };
+
+  items.forEach((item) => {
+    if (item.moneda === "UYU" && item.tipo === "entrada") {
+      acc.totalUYU += item.monto;
+    }
+
+    if (item.moneda === "USD" && item.tipo === "entrada") {
+      acc.totalUSD += item.monto;
+    }
+
+    if (item.moneda === "R$" && item.tipo === "entrada") {
+      acc.totalR$ += item.monto;
+    }
+
+    if (item.moneda === "UYU" && item.tipo === "salida") {
+      acc.totalUYU -= item.monto;
+    }
+
+    if (item.moneda === "USD" && item.tipo === "salida") {
+      acc.totalUSD -= item.monto;
+    }
+
+    if (item.moneda === "R$" && item.tipo === "salida") {
+      acc.totalR$ -= item.monto;
+    }
+  });
 
   return { acc };
 };
