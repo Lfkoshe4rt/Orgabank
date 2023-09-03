@@ -2,27 +2,31 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../hooks/store";
 import { useCajaActions } from "../../../hooks/useCajaActions";
 import { useMovementActions } from "../../../hooks/useMovementActions";
+import { formatDate } from "../../../utils/formatDate";
+import { sortMovements } from "../../../utils/sortMovements";
 import {
   ButtonSearchMore,
   IconTrash,
+  Pending,
+  TableContainer,
   TableStyle,
   Type,
-  TableContainer,
 } from "./styled";
-
-import { formatDate } from "../../../utils/formatDate";
 
 const MovementTable = (props) => {
   const { data } = props;
+
   const { cajas } = useAppSelector((state) => state.caja);
+
   const [rowsToshow, setRowsToShow] = useState(10);
   const [showMore, setShowMore] = useState(false);
+
   const { removeOneMovement } = useMovementActions();
-  const { shortDate, getHour } = formatDate();
   const { updateMovementCaja } = useCajaActions();
-  const orderData = [...data].sort((a, b) => {
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
+
+  const { shortDate, getHour } = formatDate();
+
+  const orderData = sortMovements(data);
 
   useEffect(() => {
     if (orderData.length > 10) {
@@ -33,29 +37,32 @@ const MovementTable = (props) => {
   const handleShowMore = () => {
     if (rowsToshow >= orderData.length) {
       setShowMore(false);
-      return;
     }
     setRowsToShow((prevRows) => prevRows + 10);
   };
 
-  const handleDelete = (id) => {
-    const movement = orderData.find((movement) => movement._id === id);
-    const { tipo, monto, caja: caja_id } = movement;
-    const caja = cajas.find((caja) => caja._id === caja_id);
-    const cajaSeleccionada = { ...caja };
+  const handleDelete = (movement) => {
+    const { _id, tipo, monto, caja: cajaId } = movement;
 
-    const confirmMessage = `Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo ${tipo}, por lo tanto se eliminará el monto de la cuenta seleccionada.`;
-    const shouldMessage = confirm(confirmMessage);
+    const exist = cajas.find((caja) => caja._id === cajaId);
+
+    const cajaSelected = { ...exist };
+
+    const confirmMessage = `Desea eliminar el movimiento? \n\nATENCIÓN: Este movimiento es de tipo ${tipo}, por lo tanto se ${
+      tipo === "entrada" ? "restará" : "sumará"
+    } el monto de la cuenta seleccionada.`;
+
+    const shouldDelete = confirm(confirmMessage);
 
     if (tipo === "entrada") {
-      cajaSeleccionada.saldo -= monto;
+      cajaSelected.saldo -= monto;
     } else if (tipo === "salida") {
-      cajaSeleccionada.saldo += monto;
+      cajaSelected.saldo += monto;
     }
 
-    if (shouldMessage) {
-      removeOneMovement(id);
-      updateMovementCaja(cajaSeleccionada);
+    if (shouldDelete) {
+      removeOneMovement(_id);
+      updateMovementCaja(cajaSelected);
     }
   };
 
@@ -78,29 +85,44 @@ const MovementTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            {orderData.slice(0, rowsToshow).map((movement) => (
-              <tr key={"tr-" + movement._id}>
-                <Type type={movement.tipo}>{movement.tipo}</Type>
-                <td>{movement.rubro}</td>
-                <td>{movement.subRubro}</td>
-                <td>{movement.detalle}</td>
-                <td>{movement.monto}</td>
-                <td>{movement.moneda}</td>
-                <td>{movement.banco}</td>
-                <td>{shortDate(movement.createdAt)}</td>
-                <td>{getHour(movement.createdAt)}</td>
-                <td className="d-flex justify-center">
-                  {movement?._id !== undefined ? (
-                    <IconTrash onClick={() => handleDelete(movement._id)} />
-                  ) : (
-                    <span>Loading...</span>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {orderData.slice(0, rowsToshow).map((movement) => {
+              const {
+                _id,
+                tipo,
+                rubro,
+                subRubro,
+                detalle,
+                moneda,
+                banco,
+                createdAt,
+                monto,
+              } = movement;
+
+              return (
+                <tr key={`tr-${_id}`}>
+                  <Type type={tipo}>{tipo}</Type>
+                  <td>{rubro}</td>
+                  <td>{subRubro}</td>
+                  <td>{detalle}</td>
+                  <td>{monto}</td>
+                  <td>{moneda}</td>
+                  <td>{banco}</td>
+                  <td>{shortDate(createdAt)}</td>
+                  <td>{getHour(createdAt)}</td>
+                  <td className="d-flex justify-center">
+                    {_id ? (
+                      <IconTrash onClick={() => handleDelete(movement)} />
+                    ) : (
+                      <Pending>Pending...</Pending>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </TableStyle>
       </TableContainer>
+
       <ButtonSearchMore showMore={showMore} onClick={handleShowMore}>
         Ver más
       </ButtonSearchMore>

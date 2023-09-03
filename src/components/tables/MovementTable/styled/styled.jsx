@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export const Type = styled.tr`
+export const Type = styled.td`
   color: ${(props) => (props.type === "entrada" ? "green" : "red")};
+`;
+
+export const Pending = styled.span`
+  color: red;
+  font-weight: bold;
 `;
 
 export const IconTrash = styled(RiDeleteBin6Line)`
