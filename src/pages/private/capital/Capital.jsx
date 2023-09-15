@@ -76,12 +76,8 @@ export default function Dashboard() {
         <Select onChange={onChangeFilter}>
           <option value="all">Todas las cajas</option>
           {cajas.map((caja) => (
-            <option
-              onClick={() => console.log(caja._id)}
-              key={caja._id}
-              value={caja._id}
-            >
-              {caja.alias}
+            <option key={caja._id} value={caja._id}>
+              {`${caja.alias} - ${caja.banco}`}
             </option>
           ))}
         </Select>
