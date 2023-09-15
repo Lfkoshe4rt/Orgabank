@@ -12,17 +12,33 @@ import {
   ButtonAddMovement,
   CardContainer,
   MainContainer,
+  Select,
+  Filter,
 } from "./styled";
 
 import { getAmountAllMovements } from "../../../utils/getMoney";
 
 export default function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
+  const [filter, setFilter] = useState("all");
 
   const { movements } = useAppSelector((state) => state.movement);
+  const { cajas } = useAppSelector((state) => state.caja);
   const { acc } = getAmountAllMovements(movements);
 
+  const movementsFiltered = movements.filter((movement) => {
+    if (filter === "all") {
+      return movement;
+    } else {
+      return movement.caja === filter;
+    }
+  });
+
   const toggleModal = () => setOpenModal(!openModal);
+
+  const onChangeFilter = (e) => {
+    setFilter(e.target.value);
+  };
 
   return (
     <>
@@ -56,7 +72,22 @@ export default function Dashboard() {
         </CardContainer>
       </MainContainer>
 
-      <MovementTable data={movements} />
+      <Filter>
+        <Select onChange={onChangeFilter}>
+          <option value="all">Todas las cajas</option>
+          {cajas.map((caja) => (
+            <option
+              onClick={() => console.log(caja._id)}
+              key={caja._id}
+              value={caja._id}
+            >
+              {caja.alias}
+            </option>
+          ))}
+        </Select>
+      </Filter>
+
+      <MovementTable data={movementsFiltered} />
       <ScrollToUp />
 
       <Modal title="Nuevo movimiento" open={openModal} toggle={toggleModal}>

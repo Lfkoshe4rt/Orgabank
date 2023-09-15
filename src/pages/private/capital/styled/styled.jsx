@@ -11,6 +11,25 @@ export const MainContainer = styled.div`
   }
 `;
 
+export const Filter = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+`;
+
+export const Select = styled.select`
+  padding: 10px;
+  border: 1px solid rgb(76, 155, 80);
+  float: right;
+  border-radius: 5px;
+  margin: 10px 0;
+  width: 220px;
+
+  @media (max-width: 731px) {
+    width: 100%;
+  }
+`;
+
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
