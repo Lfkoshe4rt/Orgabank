@@ -79,7 +79,7 @@ const Navbar = () => {
         >
           <Center>
             <RiMoneyDollarCircleLine size={22} className="mr-1" />
-            Movimiento
+            Movimientos
           </Center>
         </NavLink>
 

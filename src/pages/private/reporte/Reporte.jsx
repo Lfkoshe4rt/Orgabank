@@ -3,17 +3,6 @@ import { useAppSelector } from "../../../hooks/store";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Label = styled.label`
-  font-size: 1rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  cursor: pointer;
-`;
-
-const Input = styled.input`
-  margin-left: 0.5rem;
-`;
-
 const RadioContainer = styled.div`
   padding: 1rem 0;
   background-color: #d3d3d3;
@@ -21,52 +10,57 @@ const RadioContainer = styled.div`
   border-radius: 5px;
 `;
 
+const Filter = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+`;
+
+const Select = styled.select`
+  padding: 10px;
+  border: 1px solid rgb(76, 155, 80);
+  float: right;
+  border-radius: 5px;
+  margin: 10px 0;
+  width: 220px;
+
+  @media (max-width: 731px) {
+    width: 100%;
+  }
+`;
+
 const Reporte = () => {
-  const [filterAllMovements, setFilterAllMovements] = useState("pesos");
+  const [filter, setFilter] = useState("pesos");
 
   const { movements } = useAppSelector((state) => state.movement);
+  const { cajas } = useAppSelector((state) => state.caja);
 
-  const filteredMovements = movements?.filter((movement) => {
-    if (filterAllMovements === "pesos") {
-      return movement.moneda === "UYU";
-    } else if (filterAllMovements === "reales") {
-      return movement.moneda === "R$";
+  const movementsFiltered = movements.filter((movement) => {
+    if (filter === "all") {
+      return movement;
+    } else {
+      return movement.caja === filter;
     }
   });
 
-  const onChangeRadio = (e) => {
-    setFilterAllMovements(e.target.value);
+  const onChangeFilter = (e) => {
+    setFilter(e.target.value);
   };
 
   return (
     <>
-      <RadioContainer>
-        <Label htmlFor="pesos">
-          Pesos
-          <Input
-            id="pesos"
-            type="radio"
-            name="moneda"
-            value={"pesos"}
-            onChange={onChangeRadio}
-            checked={filterAllMovements === "pesos"}
-          />
-        </Label>
+      <Filter>
+        <Select onChange={onChangeFilter}>
+          <option value="all">Todas las cajas</option>
+          {cajas.map((caja) => (
+            <option key={caja._id} value={caja._id}>
+              {`${caja.alias} - ${caja.banco}`}
+            </option>
+          ))}
+        </Select>
+      </Filter>
 
-        <Label htmlFor="reales">
-          Reales
-          <Input
-            id="reales"
-            type="radio"
-            name="moneda"
-            value="reales"
-            onChange={onChangeRadio}
-            checked={filterAllMovements === "reales"}
-          />
-        </Label>
-      </RadioContainer>
-
-      <ReporteTable movements={filteredMovements} />
+      <ReporteTable movements={movementsFiltered} />
     </>
   );
 };
