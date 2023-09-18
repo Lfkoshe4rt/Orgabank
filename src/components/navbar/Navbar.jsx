@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { RiMoneyDollarCircleLine, RiWalletLine } from "react-icons/ri";
+import {
+  RiMoneyDollarCircleLine,
+  RiWalletLine,
+  RiPieChartBoxLine,
+} from "react-icons/ri";
 import { RxExit } from "react-icons/rx";
 import menu from "../../assets/images/menu.svg";
 import { PrivateRoutes, PublicRoutes } from "../../Routes/routes";
@@ -75,7 +79,20 @@ const Navbar = () => {
         >
           <Center>
             <RiMoneyDollarCircleLine size={22} className="mr-1" />
-            Capital
+            Movimiento
+          </Center>
+        </NavLink>
+
+        <NavLink
+          onClick={() => {
+            handleSelected(PrivateRoutes.REPORTE), handleActive();
+          }}
+          color={handleColor(PrivateRoutes.REPORTE)}
+          to={PrivateRoutes.REPORTE}
+        >
+          <Center>
+            <RiPieChartBoxLine size={22} className="mr-1" />
+            Reporte
           </Center>
         </NavLink>
 

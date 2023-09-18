@@ -7,4 +7,5 @@ export const PrivateRoutes = {
   PRIVATE: "private",
   CAPITAL: "capital",
   CAJAS: "cajas",
+  REPORTE: "reporte",
 };
