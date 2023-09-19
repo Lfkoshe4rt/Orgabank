@@ -1,14 +1,7 @@
-import { ReporteTable } from "../../../components/tables/ReporteTable";
-import { useAppSelector } from "../../../hooks/store";
 import { useState } from "react";
 import styled from "styled-components";
-
-const RadioContainer = styled.div`
-  padding: 1rem 0;
-  background-color: #d3d3d3;
-  margin: 5px 0;
-  border-radius: 5px;
-`;
+import { ReporteTable } from "../../../components/tables/ReporteTable";
+import { useAppSelector } from "../../../hooks/store";
 
 const Filter = styled.div`
   display: flex;
@@ -30,7 +23,7 @@ const Select = styled.select`
 `;
 
 const Reporte = () => {
-  const [filter, setFilter] = useState("pesos");
+  const [filter, setFilter] = useState("all");
 
   const { movements } = useAppSelector((state) => state.movement);
   const { cajas } = useAppSelector((state) => state.caja);
