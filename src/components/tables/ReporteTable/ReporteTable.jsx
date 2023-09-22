@@ -10,7 +10,7 @@ const ReporteTable = (props) => {
 
   const modifyMov = (movements) => {
     let previousBalance = 0;
-    const modifyMovements = movements.map((movement) => {
+    const modifyMovements = movements.reverse().map((movement) => {
       const modifiedMovement = { ...movement };
 
       if (movement.tipo === "entrada") {
