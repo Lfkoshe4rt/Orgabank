@@ -9,7 +9,7 @@ const ReporteTable = (props) => {
   let previousBalance = 0;
 
   const modifyMov = (movements) => {
-    const modifyMovements = movements.map((movement) => {
+    const modifyMovements = movements.reverse().map((movement) => {
       const modifiedMovement = { ...movement };
 
       if (movement.tipo === "entrada") {
@@ -64,37 +64,39 @@ const ReporteTable = (props) => {
               </tr>
             </thead>
             <tbody>
-              {modifyMov(movements).map((movement) => {
-                const {
-                  _id,
-                  tipo,
-                  rubro,
-                  subRubro,
-                  detalle,
-                  moneda,
-                  banco,
-                  createdAt,
-                  monto,
-                  saldoActual,
-                  saldoAnterior,
-                } = movement;
+              {modifyMov(movements)
+                .reverse()
+                .map((movement) => {
+                  const {
+                    _id,
+                    tipo,
+                    rubro,
+                    subRubro,
+                    detalle,
+                    moneda,
+                    banco,
+                    createdAt,
+                    monto,
+                    saldoActual,
+                    saldoAnterior,
+                  } = movement;
 
-                return (
-                  <tr key={`tr-${_id}`}>
-                    <Type type={tipo}>{tipo}</Type>
-                    <td>{rubro}</td>
-                    <td>{subRubro}</td>
-                    <td>{detalle}</td>
-                    <td>{monto}</td>
-                    <td>{moneda}</td>
-                    <td>{banco}</td>
-                    <td>{shortDate(createdAt)}</td>
-                    <td>{getHour(createdAt)}</td>
-                    <td>{saldoAnterior}</td>
-                    <td>{saldoActual}</td>
-                  </tr>
-                );
-              })}
+                  return (
+                    <tr key={`tr-${_id}`}>
+                      <Type type={tipo}>{tipo}</Type>
+                      <td>{rubro}</td>
+                      <td>{subRubro}</td>
+                      <td>{detalle}</td>
+                      <td>{monto}</td>
+                      <td>{moneda}</td>
+                      <td>{banco}</td>
+                      <td>{shortDate(createdAt)}</td>
+                      <td>{getHour(createdAt)}</td>
+                      <td>{saldoAnterior}</td>
+                      <td>{saldoActual}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </TableStyle>
         </TableContainer>
