@@ -1,14 +1,17 @@
 import { formatDate } from "../../../utils/formatDate";
 import { TableContainer, TableStyle, Type } from "./styled";
+import { sortMovements } from "../../../utils/sortMovements";
 
 const ReporteTable = (props) => {
   const { movements } = props;
+
+  const sortedMovements = sortMovements(movements);
 
   const { shortDate, getHour } = formatDate();
 
   const modifyMov = (movements) => {
     let previousBalance = 0;
-    const modifyMovements = movements.map((movement) => {
+    const modifyMovements = movements.reverse().map((movement) => {
       const modifiedMovement = { ...movement };
       if (movement.tipo === "entrada") {
         previousBalance += modifiedMovement.monto;
@@ -25,8 +28,6 @@ const ReporteTable = (props) => {
     });
     return modifyMovements;
   };
-
-  console.log(modifyMov(movements));
 
   return (
     <>
@@ -49,7 +50,7 @@ const ReporteTable = (props) => {
               </tr>
             </thead>
             <tbody>
-              {modifyMov(movements).map((movement) => {
+              {modifyMov(sortedMovements).map((movement) => {
                 const {
                   _id,
                   tipo,
